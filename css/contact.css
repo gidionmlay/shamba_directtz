@@ -1,0 +1,366 @@
+/* Reset & base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; line-height: 1.6; background: #f5f5f5; color: #333; }
+
+    /* Header */
+
+/* --- Global Styles & Variables (Optional but good practice) --- */
+:root {
+    --primary-green: #6CBE45; /* Shamba Direct Green */
+    --primary-green-dark: #5BA83A; /* Darker green for hover */
+    --text-dark: #2b3b48; /* Dark text for headings/important info */
+    --text-medium: #555; /* Medium gray for general text */
+    --text-light: #888; /* Lighter gray for subtle text */
+    --bg-light: #F8F9FB; /* Light background for sections */
+    --border-light: #e0e0e0; /* Light border color */
+    --shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    --transition-speed: 0.3s ease;
+}
+
+
+    /* Section wrapper */
+    .contact-section {
+      padding: 60px 20px;
+    }
+    .contact-section .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .contact-section h2 {
+      color: #0d4d22;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+    .contact-section p.lead {
+      text-align: center;
+      color: #555;
+      margin-bottom: 40px;
+    }
+
+    /* Grid */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    /* Card base */
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 30px;
+    }
+
+    /* Contact form */
+    .contact-form h3 {
+      margin-bottom: 20px;
+      color: #0d4d22;
+    }
+    .contact-form .form-group {
+      margin-bottom: 15px;
+    }
+    .contact-form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .contact-form button {
+      display: inline-flex;
+      align-items: center;
+      background-color: #0d4d22;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .contact-form button i {
+      margin-right: 8px;
+    }
+    .contact-form button:hover {
+      background-color: #0b3f1a;
+    }
+
+    /* Info cards */
+    .info-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .info-card h4 {
+      color: #0d4d22;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+    .info-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .info-card ul li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      color: #444;
+    }
+    .info-card ul li i {
+      color: #a4d65e;
+      margin-right: 12px;
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    /* Social links in Connect */
+    .social-list li i {
+      width: 24px;
+    }
+    .social-list li a {
+      color: #0d4d22;
+      text-decoration: none;
+    }
+    .social-list li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Map */
+    .map-section h3 {
+      color: #0d4d22;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    .map-container {
+      width: 100%;
+      height: 400px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+/* WhatsApp Floating Button */
+.whatsapp-float {
+    position: fixed; /* Fixes the button to the viewport */
+    width: 80px; /* Width of the button */
+    height: 80px; /* Height of the button */
+    bottom: 130px; /* Distance from the bottom of the screen */
+    right: 50px; /* Distance from the right of the screen */
+    background-color: #25d366; /* WhatsApp brand green */
+    color: #FFF; /* White icon color */
+    border-radius: 50%; /* Makes the button perfectly round */
+    text-align: center; /* Centers the icon horizontally */
+    font-size: 30px; /* Size of the icon */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    z-index: 1000; /* Ensures the button is on top of other content */
+    display: flex; /* Use flexbox to vertically center the icon */
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects */
+}
+
+.whatsapp-float:hover {
+    background-color: #8cff00; /* Slightly darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Style for the Boxicon inside the button */
+.whatsapp-float i {
+    line-height: 1; /* Ensures icon is perfectly centered vertically */
+    /* Remove any default boxicon margins if they exist */
+    margin: 0;
+    padding: 0;
+    display: block; /* Ensures the icon itself doesn't have extra space */
+    animation: bounce 2s infinite; /* Apply the bounce animation */
+}
+
+/* Keyframes for the bounce animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-8px); /* Bounce up by 8px */
+    }
+    60% {
+        transform: translateY(-4px); /* Slight bounce up by 4px */
+    }
+}
+
+/* Responsive Adjustments (optional, but good practice) */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .whatsapp-float {
+        width: 60px;
+        height: 60px;
+        bottom: 15px;
+        right: 17px;
+        font-size: 22px;
+    }
+}
+/* Small Phones (e.g., up to 480px) */
+@media (max-width: 480px) {
+    .footer-section {
+        padding: 30px 10px;
+    }
+
+    .footer-logo {
+        max-width: 150px;
+    }
+
+    .footer-heading {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+
+    .footer-links-list a,
+    .footer-contact-list a,
+    .footer-tagline,
+    .access-channel-item span,
+    .footer-copyright,
+    .footer-legal-links a {
+        font-size: 0.9em;
+    }
+
+    .footer-icon-large {
+        font-size: 1.8em;
+    }
+
+    .access-channels-grid {
+        gap: 10px;
+    }
+
+    .social-icons a {
+        font-size: 1.3em;
+        width: 35px;
+        height: 35px;
+    }
+    .footer-bottom-bar {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .footer-legal-links a {
+            font-size: 0.8em;
+        }
+    }
+/* Chatbot Styles */
+  /* Chatbot container */
+  
+.chatbot-container {
+    position: fixed;
+    bottom: 250px;
+    right: 40px;
+    z-index: 999;
+    font-family: sans-serif;
+  }
+  
+  .chatbot-toggle {
+    background: #3c5332;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+  
+  .chatbot-window {
+    display: none;
+    flex-direction: column;
+    width: 300px;
+    height: 400px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  
+  .chatbot-window.active {
+    display: flex;
+  }
+  
+  .chatbot-header {
+    background: #38b000;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chatbot-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+  }
+  
+  .bot-msg, .user-msg {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    max-width: 80%;
+  }
+  
+  .bot-msg {
+    background: #e1fbd3;
+    align-self: flex-start;
+  }
+  
+  .user-msg {
+    background: #d1e7ff;
+    align-self: flex-end;
+    text-align: right;
+  }
+  
+  #chatForm {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  #chatInput {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  #chatForm button {
+    background: #38b000;
+    color: white;
+    border: none;
+    padding: 0 15px;
+    margin-left: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+  }

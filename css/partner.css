@@ -1,0 +1,271 @@
+/* Custom Variables (adjust colors as needed) */
+:root {
+    --soft-bg: #f5f8fa; /* Light background for the section */
+    --text-dark: #333;
+    --text-light: #666;
+    --accent-purple: #7B1FA2; /* A strong purple for accents */
+    --accent-purple-light: #E1BEE7; /* Lighter purple for dots/subtle elements */
+    --gradient-start: rgba(0,0,0,0); /* Transparent */
+    --gradient-end: rgba(0,0,0,0.7); /* Opaque black */
+}
+
+/* Why Choose Us Section */
+.why-choose-us-section {
+    padding: 80px 0;
+    background-color: var(--soft-bg);
+}
+
+.why-choose-us-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.why-choose-us-grid {
+    display: flex;
+    gap: 50px; /* Space between columns */
+    align-items: center;
+}
+
+/* Left Side: Content Section */
+.why-choose-us-content {
+    flex: 1;
+    min-width: 300px; /* Ensures it doesn't get too small */
+    text-align: center; /* Center content horizontally */
+}
+
+.why-choose-us-content .section-title {
+    font-size: 2.8em;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 40px;
+    line-height: 1.2;
+}
+
+.points-slider {
+    position: relative;
+    height: 200px; /* Fixed height to prevent layout shifts during transitions */
+    overflow: hidden;
+    margin-bottom: 30px;
+    display: flex; /* Helps center point content */
+    align-items: center; /* Vertically center content */
+    justify-content: center;
+}
+
+.point-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Fill the slider container */
+    display: flex; /* For internal centering */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.7s ease-in-out; /* Smooth fade effect */
+    pointer-events: none; /* Prevent interaction when hidden */
+}
+
+.point-item.active {
+    opacity: 1; /* Visible when active */
+    pointer-events: auto; /* Allow interaction when active */
+}
+
+.point-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: var(--accent-purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 2.2em;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.point-message {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.point-message strong {
+    color: var(--text-dark); /* Ensure strong tag inherits color */
+}
+
+.point-description {
+    font-size: 1em;
+    color: var(--text-light);
+    line-height: 1.6;
+    max-width: 400px; /* Constrain width for readability */
+}
+
+/* Navigation Dots */
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--accent-purple-light);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.dot.active {
+    background-color: var(--accent-purple);
+    transform: scale(1.2);
+}
+
+.dot:hover {
+    background-color: var(--accent-purple);
+}
+
+
+/* Right Side: Video Section */
+.why-choose-us-video {
+    flex: 1;
+    min-width: 300px;
+    position: relative;
+    max-width: 600px; /* Max width for the video container */
+    margin: 0 auto; /* Center video if it's not taking full flex space */
+}
+
+.video-label {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio (height / width * 100%) */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures video covers the area */
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end));
+    z-index: 1; /* Above video */
+}
+
+.video-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 2; /* Above overlay */
+}
+
+.video-controls button {
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Lighter border */
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.video-controls button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .why-choose-us-grid {
+        flex-direction: column; /* Stack columns vertically */
+        gap: 60px; /* More space when stacked */
+    }
+
+    .why-choose-us-content,
+    .why-choose-us-video {
+        width: 100%; /* Take full width */
+        max-width: 600px; /* Keep max-width for readability/video size */
+    }
+
+    .why-choose-us-content {
+        order: 2; /* Content after video on mobile */
+    }
+
+    .why-choose-us-video {
+        order: 1; /* Video first on mobile */
+    }
+
+    .points-slider {
+        height: 180px; /* Adjust height for smaller screens if needed */
+    }
+
+    .point-message {
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 576px) {
+    .why-choose-us-section {
+        padding: 60px 0;
+    }
+
+    .why-choose-us-content .section-title {
+        font-size: 2.2em;
+        margin-bottom: 30px;
+    }
+
+    .points-slider {
+        height: 160px;
+    }
+
+    .point-icon-wrapper {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+
+    .point-message {
+        font-size: 1.1em;
+    }
+
+    .point-description {
+        font-size: 0.9em;
+    }
+
+    .video-controls button {
+        width: 40px;
+        height: 40px;
+        font-size: 1em;
+        bottom: 15px;
+        left: 15px;
+    }
+}

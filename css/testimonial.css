@@ -1,0 +1,240 @@
+/* Ensure these root variables are defined if not already */
+:root {
+    --primary-green: #4CAF50;
+    --secondary-brown: #8D6E63;
+    --light-grey: #f4f4f4;
+    --dark-grey: #333;
+    --text-color: #555;
+    --white: #ffffff;
+    --accent-purple-start: #d0ff00; /* Derived from mockup */
+    --accent-purple-end: #19880f97;   /* Derived from mockup */
+}
+
+/* Testimonials Section Styling */
+.testimonials-section {
+    padding: 80px 0;
+    background-color: var(--light-grey); /* Fallback */
+    position: relative;
+    z-index: 1; /* For stacking context with pseudo-element */
+    overflow: hidden; /* Important for background image */
+}
+
+/* Green Glowing Grid Background */
+.testimonials-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/public/assets/images/IMG_3959.jpg'); /* Your grid image */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15; /* Medium opacity to add depth without overpowering */
+    z-index: -1; /* Place behind content */
+}
+
+.testimonials-section .container {
+    display: flex; /* Use flexbox for two-column layout */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 60px; /* Space between the left and right columns */
+    align-items: center; /* Vertically align items */
+}
+
+/* Left-side Testimonial Introduction Block */
+.testimonial-intro {
+    flex: 1; /* Allows it to take available space */
+    min-width: 300px; /* Minimum width before wrapping */
+    max-width: 500px; /* Control its max width */
+    position: relative;
+}
+
+.testimonial-intro .intro-decoration {
+    position: absolute;
+    top: -98px; /* Adjust as needed to position the star path */
+    left: -10px;
+    width: 100px; /* Size of your SVG/image */
+    height: 100px;
+    z-index: 0;
+}
+
+.testimonial-intro h2 {
+    font-size: 3.2em; /* Large heading */
+    font-weight: 700;
+    color: var(--dark-grey);
+    margin-bottom: 20px;
+    line-height: 1.1;
+    position: relative; /* For z-index over decoration */
+    z-index: 1;
+}
+
+.testimonial-intro p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+/* "View More" Button */
+.btn-view-more {
+    display: inline-block;
+    padding: 15px 35px;
+    border-radius: 50px; /* Rounded corners */
+    font-size: 1em;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--white);
+    /* Subtle gradient background */
+    background: linear-gradient(to right, var(--accent-purple-start), var(--accent-purple-end));
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-view-more:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
+    background-color: #d0ff00;
+}
+
+/* Right-side Testimonial Cards Grid */
+.testimonial-cards-grid {
+    flex: 1.2; /* Allows it to take more space than intro */
+    min-width: 400px; /* Minimum width for cards before wrapping */
+    display: flex;
+    flex-direction: column; /* Stack cards vertically */
+    gap: 20px; /* Space between individual cards */
+}
+
+/* Individual Testimonial Card */
+.testimonial-item {
+    background-color: var(--white);
+    padding: 25px 30px;
+    border-radius: 22px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column; /* Content inside card stacks vertically */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-left 0.3s ease;
+    border-left: 5px solid transparent; /* Default transparent border */
+    position: relative;
+    z-index: 1; /* For highlight layering */
+}
+
+.testimonial-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.testimonial-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.testimonial-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 3px solid var(--primary-green); /* Green border for avatars */
+}
+
+.testimonial-info {
+    flex-grow: 1;
+}
+
+.testimonial-name {
+    font-weight: 600;
+    color: var(--dark-grey);
+    margin: 0;
+    font-size: 1.1em;
+}
+
+.testimonial-location {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.quote-icon {
+    font-size: 3em; /* Large quote mark */
+    color: var(--light-grey); /* Light grey as per mockup */
+    font-family: serif; /* Ensure it's a prominent quote mark */
+    opacity: 0.7;
+    position: absolute;
+    top: -10px;
+    right: 0px;
+    z-index: 0; /* Behind text */
+}
+
+.testimonial-text {
+    font-size: 1em;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+    position: relative; /* Over quote icon */
+    z-index: 1;
+}
+
+/* Visual Highlight Style for Active/Center Testimonial */
+.testimonial-item.highlight {
+    border-left: 5px solid;
+    border-image: linear-gradient(to bottom, var(--accent-purple-start), var(--accent-purple-end)) 1; /* Gradient border */
+    transform: translateY(-10px); /* Lift it more */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+    z-index: 2; /* Ensure it's on top */
+}
+
+.testimonial-item.highlight .testimonial-avatar {
+    border-color: var(--accent-purple-start); /* Change avatar border color */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .testimonials-section .container {
+        flex-direction: column; /* Stack columns on smaller screens */
+        text-align: center;
+    }
+
+    .testimonial-intro {
+        max-width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .testimonial-intro .intro-decoration {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .testimonial-cards-grid {
+        min-width: unset; /* Remove min-width to allow shrinking */
+        width: 100%; /* Take full width */
+        align-items: center; /* Center cards in the column */
+    }
+
+    .testimonial-item {
+        width: 100%; /* Make cards take full width available */
+        max-width: 400px; /* Optional: limit max width of individual cards */
+    }
+}
+
+@media (max-width: 576px) {
+    .testimonial-intro h2 {
+        font-size: 2.5em;
+    }
+
+    .testimonial-item {
+        padding: 20px;
+    }
+
+    .testimonial-avatar {
+        width: 50px;
+        height: 50px;
+    }
+}

@@ -1,0 +1,129 @@
+/* --- Base Theme (Light Mode - Default) --- */
+body {
+    background-color: #f8f8f8; /* Light background */
+    color: #333; /* Dark text */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Example for navigation, header, sections - adjust selectors as needed */
+header, nav, .section-light {
+    background-color: #ffffff; /* White background for UI elements */
+    color: #333;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Example for text elements */
+h1, h2, h3, h4, h5, h6 {
+    color: #222;
+}
+
+p, li, span {
+    color: #444;
+}
+
+a {
+    color: #007bff; /* Blue links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Example for cards, forms, or content containers */
+.card, .form-container, .content-box {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Input fields and buttons */
+input[type="text"], input[type="email"], input[type="password"], textarea, select {
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #ccc;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+button, .btn-primary {
+    background-color: #4CAF50; /* Shamba Direct Green */
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+button:hover, .btn-primary:hover {
+    background-color: #45a049;
+}
+
+
+/* --- Dark Mode Styles --- */
+body.dark-mode {
+    background-color: #1a1a1a; /* Dark background */
+    color: #f0f0f0; /* Light text */
+}
+
+/* Navigation, header, sections in dark mode */
+body.dark-mode header,
+body.dark-mode nav,
+body.dark-mode .section-light { /* Adjust this class if you have specific light sections */
+    background-color: #2c2c2c; /* Darker grey for UI elements */
+    color: #f0f0f0;
+    border-bottom-color: #3a3a3a;
+}
+
+/* Text elements in dark mode */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: #f8f8f8;
+}
+
+body.dark-mode p,
+body.dark-mode li,
+body.dark-mode span {
+    color: #e0e0e0;
+}
+
+body.dark-mode a {
+    color: #8ab4f8; /* Lighter blue for dark mode links */
+}
+
+/* Cards, forms, or content containers in dark mode */
+body.dark-mode .card,
+body.dark-mode .form-container,
+body.dark-mode .content-box {
+    background-color: #2c2c2c;
+    border-color: #3a3a3a;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+/* Input fields and buttons in dark mode */
+body.dark-mode input[type="text"],
+body.dark-mode input[type="email"],
+body.dark-mode input[type="password"],
+body.dark-mode textarea,
+body.dark-mode select {
+    background-color: #3a3a3a;
+    color: #f0f0f0;
+    border-color: #555;
+}
+
+body.dark-mode button,
+body.dark-mode .btn-primary {
+    background-color: #367c39; /* Slightly darker green for dark mode buttons */
+    color: white;
+}
+body.dark-mode button:hover,
+body.dark-mode .btn-primary:hover {
+    background-color: #306c33;
+}
+
+/* Example: Specific adjustments for icons if needed */
+body.dark-mode .icon-section i {
+    color: #f0f0f0; /* Ensure icons are visible */
+}

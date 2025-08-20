@@ -1,0 +1,113 @@
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--primary-green);
+    color: var(--white);
+    border: 2px solid var(--primary-green);
+}
+
+.btn-primary:hover {
+    background-color: darken(var(--primary-green), 10%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-green);
+    border: 2px solid var(--primary-green);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-green);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+    position: fixed; /* Fixes the button to the viewport */
+    width: 80px; /* Width of the button */
+    height: 80px; /* Height of the button */
+    bottom: 130px; /* Distance from the bottom of the screen */
+    right: 50px; /* Distance from the right of the screen */
+    background-color: #25d366; /* WhatsApp brand green */
+    color: #FFF; /* White icon color */
+    border-radius: 50%; /* Makes the button perfectly round */
+    text-align: center; /* Centers the icon horizontally */
+    font-size: 30px; /* Size of the icon */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    z-index: 1000; /* Ensures the button is on top of other content */
+    display: flex; /* Use flexbox to vertically center the icon */
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects */
+}
+
+.whatsapp-float:hover {
+    background-color: #8cff00; /* Slightly darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Style for the Boxicon inside the button */
+.whatsapp-float i {
+    line-height: 1; /* Ensures icon is perfectly centered vertically */
+    /* Remove any default boxicon margins if they exist */
+    margin: 0;
+    padding: 0;
+    display: block; /* Ensures the icon itself doesn't have extra space */
+    animation: bounce 2s infinite; /* Apply the bounce animation */
+}
+
+/* Keyframes for the bounce animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-8px); /* Bounce up by 8px */
+    }
+    60% {
+        transform: translateY(-4px); /* Slight bounce up by 4px */
+    }
+}
+
+/* Responsive Adjustments (optional, but good practice) */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .whatsapp-float {
+        width: 60px;
+        height: 60px;
+        bottom: 15px;
+        right: 17px;
+        font-size: 22px;
+    }
+}
+    .whatsapp-float i {
+        font-size: 1.5em; /* Adjust icon size for smaller screens */
+    }
+    .whatsapp-float:hover i {
+        transform: scale(1.1); /* Slightly enlarge the icon on hover */
+    }
+    .whatsapp-float:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }

@@ -1,0 +1,340 @@
+/* --- Root Variables (Shamba Direct Brand Colors) --- */
+:root {
+    --primary-green: #67B749;
+    --primary-green-dark: #56a03d; /* Slightly darker for hover */
+    --accent-light-gray: #D3D3D3;
+    --text-dark: #333333;
+    --text-medium: #4B4B4B;
+    --text-light: #777777;
+    --bg-white: #FFFFFF;
+    --border-color: #E0E0E0;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+    --transition-speed: 0.3s;
+    --border-radius-card: 1rem; /* 16px */
+}
+
+/* --- Base Styles --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--text-medium);
+    background-color: var(--bg-white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+    padding: 20px; /* Overall page padding */
+}
+
+/* Contour Topography Background */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(103, 183, 73, 0.05) 0%, transparent 15%),
+        radial-gradient(circle at 90% 80%, rgba(103, 183, 73, 0.05) 0%, transparent 15%),
+        linear-gradient(135deg, rgba(103, 183, 73, 0.08) 25%, transparent 25%),
+        linear-gradient(225deg, rgba(103, 183, 73, 0.08) 25%, transparent 25%),
+        linear-gradient(45deg, rgba(103, 183, 73, 0.08) 25%, transparent 25%),
+        linear-gradient(315deg, rgba(103, 183, 73, 0.08) 25%, transparent 25%);
+    background-size: 80px 80px; /* Adjust density */
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius-card);
+    box-shadow: 0 15px 40px var(--shadow-medium);
+    padding: 30px;
+}
+
+/* --- Top Header --- */
+.top-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px; /* Space below header */
+    margin-bottom: 20px; /* Space before main content */
+    border-bottom: 1px solid var(--border-color); /* Subtle separator */
+}
+
+.top-header .logo img {
+    max-width: 150px;
+    height: auto;
+}
+
+.auth-links p {
+    font-size: 0.95em;
+    color: var(--text-medium);
+}
+
+.auth-links a {
+    color: var(--primary-green);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--transition-speed);
+}
+
+.auth-links a:hover {
+    color: var(--primary-green-dark);
+    text-decoration: underline;
+}
+
+/* --- Main Content Section --- */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Allows main content to take available space */
+    width: 100%;
+    padding: 20px 0;
+}
+
+.title-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.title-section h1 {
+    font-size: 2.8em;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.title-section p {
+    font-size: 1.2em;
+    color: var(--text-medium);
+}
+
+/* --- Role Cards Container --- */
+.role-cards-container {
+    display: flex;
+    gap: 30px; /* Space between cards */
+    justify-content: center;
+    align-items: stretch; /* Make cards same height */
+    width: 100%;
+    max-width: 900px; /* Max width for the cards row */
+    margin-bottom: 40px;
+}
+
+.role-card {
+    background-color: var(--bg-white);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-card);
+    padding: 35px;
+    text-align: center;
+    flex: 1; /* Allow cards to grow and shrink */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Pushes button to bottom */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    transition: transform var(--transition-speed) ease-out,
+                box-shadow var(--transition-speed) ease-out,
+                border-color var(--transition-speed) ease-out;
+}
+
+.role-card:hover {
+    transform: translateY(-8px) scale(1.02); /* Lift and slightly scale */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-green); /* Green border glow */
+}
+
+.card-icon {
+    font-size: 3.5em; /* Large emoji icons */
+    margin-bottom: 20px;
+    line-height: 1; /* Prevent extra space around icon */
+}
+
+.role-card h3 {
+    font-size: 1.8em;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.role-card p {
+    font-size: 1.05em;
+    color: var(--text-medium);
+    margin-bottom: 30px;
+    line-height: 1.4;
+    flex-grow: 1; /* Allows text to take available space */
+}
+
+.register-button {
+    display: inline-block;
+    background-color: var(--primary-green);
+    color: var(--bg-white);
+    padding: 14px 30px;
+    border-radius: 50px; /* Pill shape */
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color var(--transition-speed), transform 0.15s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.register-button:hover {
+    background-color: var(--primary-green-dark);
+    transform: translateY(-2px);
+}
+
+/* --- Support Section --- */
+.support-section {
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--text-light);
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color); /* Subtle separator */
+    width: 100%;
+}
+
+.support-section a {
+    color: var(--primary-green);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-speed);
+}
+
+.support-section a:hover {
+    color: var(--primary-green-dark);
+    text-decoration: underline;
+}
+
+.whatsapp-link i {
+    margin-right: 5px;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .page-container {
+        padding: 15px;
+        box-shadow: none; /* Reduce shadow on small screens */
+        border-radius: 0; /* No rounded corners on very small screens */
+    }
+
+    .top-header {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+    }
+
+    .top-header .logo img {
+        margin-bottom: 10px;
+    }
+
+    .auth-links p {
+        font-size: 0.85em;
+    }
+
+    .title-section {
+        margin-bottom: 30px;
+    }
+
+    .title-section h1 {
+        font-size: 2.2em;
+    }
+
+    .title-section p {
+        font-size: 1em;
+    }
+
+    .role-cards-container {
+        flex-direction: column; /* Stack cards vertically */
+        gap: 25px;
+        max-width: 450px; /* Constrain width for stacked cards */
+        margin-bottom: 30px;
+    }
+
+    .role-card {
+        padding: 30px;
+    }
+
+    .card-icon {
+        font-size: 3em;
+        margin-bottom: 15px;
+    }
+
+    .role-card h3 {
+        font-size: 1.6em;
+        margin-bottom: 10px;
+    }
+
+    .role-card p {
+        font-size: 0.95em;
+        margin-bottom: 25px;
+    }
+
+    .register-button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    .support-section {
+        font-size: 0.85em;
+        padding-top: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .top-header .logo img {
+        max-width: 100px;
+    }
+
+    .title-section h1 {
+        font-size: 1.8em;
+    }
+
+    .title-section p {
+        font-size: 0.9em;
+    }
+
+    .role-card {
+        padding: 25px;
+    }
+
+    .card-icon {
+        font-size: 2.8em;
+    }
+
+    .role-card h3 {
+        font-size: 1.4em;
+    }
+
+    .role-card p {
+        font-size: 0.9em;
+    }
+
+    .register-button {
+        padding: 10px 20px;
+        font-size: 0.95em;
+    }

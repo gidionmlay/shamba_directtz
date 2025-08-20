@@ -1,0 +1,335 @@
+/* --- Header Section --- */
+.shamba-navbar {
+    background-color: #FFFFFF; /* White background for the header */
+    padding: 15px 20px; /* Vertical and horizontal padding */
+    box-shadow: var(--shadow-subtle); /* Subtle shadow for depth */
+    border-bottom: 1px solid var(--border-light); /* Light bottom border */
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: sticky; /* Makes the header stick to the top when scrolling */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100; /* Ensures header stays on top of other content */
+}
+
+.navbar-container {
+    display: flex; /* Use flexbox for main layout */
+    justify-content: space-between; /* Distribute items evenly with space between */
+    align-items: center; /* Vertically align items in the center */
+    max-width: 1300px; /* Max width for content, adjust as needed */
+    margin: 0 auto; /* Center the container */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+}
+
+/* --- Logo Section --- */
+.logo-section {
+    display: flex; /* In case you add text next to logo */
+    align-items: center;
+}
+
+.logo-img {
+    max-height: 95.5px; /* Adjust logo height as needed */
+    width: 250px;
+    object-fit: contain; /* Ensure logo scales properly */
+}
+
+/* --- Main Navigation (Links) --- */
+.main-nav {
+    display: flex; /* Arrange links horizontally */
+    gap: 30px; /* Space between navigation links */
+    margin: 0 40px; /* Margin to separate from logo and icons */
+    
+}
+
+.main-nav a {
+    color: var(--text-medium); /* Default link color */
+    text-decoration: none;
+    font-size: 1.0em;
+    font-weight: 500;
+    padding: 5px 0; /* Padding for click area */
+    position: relative; /* For underline effect */
+    transition: color var(--transition-speed);
+    
+}
+
+.main-nav a:hover {
+    color: var(--primary-green); /* Green color on hover */
+    text-decoration: none;
+}
+
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-green);
+    transition: width var(--transition-speed);
+}
+
+.main-nav a:hover::after {
+    width: 100%; /* Expand underline on hover */
+}
+
+/* --- Icon Section --- */
+.icon-section {
+    display: flex;
+    gap: 20px; /* Space between icons */
+    margin-right: 30px; /* Space before auth buttons */
+}
+
+.icon-section i {
+    font-size: 1.4em; /* Size of the icons */
+    color: var(--text-medium); /* Default icon color */
+    cursor: pointer;
+    transition: color var(--transition-speed), transform 0.2s ease;
+}
+
+.icon-section i:hover {
+    color: var(--primary-green); /* Green on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+#theme-toggle {
+    /* Specific styling for the theme toggle icon */
+    font-size: 1.5em; /* Slightly larger for prominence */
+    /* You might want a different hover effect or color for this */
+}
+
+
+/* --- Auth Section (Login/Register Buttons) --- */
+.auth-section {
+    display: flex;
+    gap: 15px; /* Space between buttons */
+}
+
+.auth-section a {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px; /* Rounded pill shape */
+    text-decoration: none;
+    font-size: 0.95em;
+    font-weight: 600;
+    transition: background-color var(--transition-speed), color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.login-btn {
+    background-color: transparent; /* Transparent background for login */
+    color: var(--primary-green); /* Green text for login */
+    border: 1px solid var(--primary-green); /* Green border */
+}
+
+.login-btn:hover {
+    background-color: var(--primary-green); /* Green background on hover */
+    color: #FFFFFF; /* White text on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.register-btn {
+    background-color: var(--primary-green); /* Green background for register */
+    color: #FFFFFF; /* White text for register */
+    border: 1px solid var(--primary-green); /* Green border */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.register-btn:hover {
+    background-color: var(--primary-green-dark); /* Darker green on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px); /* Slight lift on hover */
+}
+
+/* Hide mobile menu elements by default on larger screens */
+.menu-toggle,
+.mobile-menu-overlay,
+.mobile-nav-offcanvas {
+    display: none; /* Hidden on desktop by default */
+}
+
+/* Base styles for the off-canvas mobile menu */
+.mobile-nav-offcanvas {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Initially off-screen to the right */
+    width: 280px; /* Width of the mobile menu */
+    max-width: 90vw; /* Prevent menu from being too wide on small screens */
+    height: 100%;
+    background-color: #FFFFFF; /* White background */
+    padding: 30px 20px;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1); /* Shadow to make it pop */
+    z-index: 101; /* Above overlay and header */
+    transition: right var(--transition-speed); /* Smooth slide-in/out */
+    flex-direction: column; /* Stack content vertically */
+    box-sizing: border-box; /* Include padding in width */
+    overflow-y: auto; /* Enable scrolling for long menus */
+}
+
+.mobile-nav-offcanvas.is-open {
+    right: 0; /* Slide into view */
+    display: flex; /* Show when open */
+}
+
+/* Mobile menu overlay styles */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+    z-index: 100; /* Below off-canvas, above page content */
+    opacity: 0; /* Hidden by default */
+    transition: opacity var(--transition-speed); /* Smooth fade-in/out */
+}
+
+.mobile-menu-overlay.is-open {
+    opacity: 1; /* Fade in when open */
+    display: block; /* Show when open */
+}
+
+/* Close button inside mobile menu */
+.mobile-nav-offcanvas .close-btn {
+    font-size: 2em;
+    align-self: flex-end; /* Align to top right */
+    cursor: pointer;
+    color: var(--text-medium);
+    margin-bottom: 30px;
+    transition: color 0.2s ease;
+}
+
+.mobile-nav-offcanvas .close-btn:hover {
+    color: var(--primary-green);
+}
+
+/* Styles for duplicated navigation, icons, and auth in mobile menu */
+.mobile-main-nav,
+.mobile-icon-section,
+.mobile-auth-section {
+    display: flex; /* Enable flex for internal layout */
+    flex-direction: column; /* Stack items vertically */
+    width: 100%; /* Take full width of off-canvas menu */
+    margin-bottom: 20px; /* Space between sections */
+}
+
+.mobile-main-nav a {
+    color: var(--text-dark); /* Darker text for better contrast in menu */
+    text-decoration: none;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-light); /* Separator for links */
+    font-size: 1.1em;
+    font-weight: 500;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.mobile-main-nav a:hover {
+    background-color: var(--bg-light); /* Light background on hover */
+    color: var(--primary-green);
+}
+
+.mobile-icon-section {
+    flex-wrap: wrap; /* Allow icons to wrap */
+    justify-content: flex-start; /* Align icons to the left */
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 1.4em; /* Match desktop icon size */
+    color: var(--text-medium);
+}
+
+.mobile-icon-section i,
+.mobile-icon-section a {
+    cursor: pointer;
+    color: inherit; /* Inherit color from parent */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.mobile-icon-section i:hover,
+.mobile-icon-section a:hover i {
+    color: var(--primary-green);
+}
+
+.mobile-auth-section {
+    gap: 10px; /* Space between stacked buttons */
+    margin-top: 20px;
+}
+
+.mobile-auth-section a {
+    padding: 12px 20px;
+    text-align: center;
+    border: none; /* Remove bottom border for buttons */
+}
+
+
+/* --- Media Queries for Breakpoints --- */
+
+/* Tablet & Smaller Desktop (768px - 1024px) */
+@media (max-width: 1024px) {
+    /* Optimize spacing/font sizes for tablet if needed, without changing original styling */
+    .main-nav {
+        gap: 20px; /* Slightly reduce gap between nav links */
+        margin: 0 20px;
+    }
+    .icon-section {
+        gap: 15px; /* Slightly reduce gap between icons */
+        margin-right: 20px;
+    }
+    .auth-section {
+        gap: 10px; /* Slightly reduce gap between auth buttons */
+    }
+    .auth-section a {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+}
+
+/* Mobile Devices (< 768px) */
+@media (max-width: 767px) { /* Breakpoint at 767px to ensure it's less than 768px */
+    .navbar-container {
+        justify-content: space-between; /* Keep logo and toggle separated */
+        padding: 0 15px; /* Adjust padding for smaller screens */
+    }
+
+    /* Hide desktop navigation, icons, and auth buttons */
+    .main-nav,
+    .icon-section,
+    .auth-section {
+        display: none;
+    }
+
+    /* Show hamburger icon */
+    .menu-toggle {
+        display: block;
+        order: 2; /* Position after logo */
+        font-size: 1.8em;
+        color: var(--text-dark);
+        cursor: pointer;
+    }
+
+    /* Adjust logo size for mobile */
+    .logo-img {
+        max-height: 45px; /* Smaller logo on mobile */
+        width: auto; /* Maintain aspect ratio */
+    }
+
+    /* For the mobile menu to show, it needs to be flex/block inside the JS toggle */
+    /* The .is-open class on .mobile-nav-offcanvas will handle display: flex; */
+}
+
+/* Further smaller mobile adjustments (< 480px) */
+@media (max-width: 479px) {
+    .shamba-navbar {
+        padding: 10px 15px;
+    }
+    .logo-img {
+        max-height: 40px;
+    }
+    .menu-toggle {
+        font-size: 1.6em;
+    }
+    .mobile-nav-offcanvas {
+        width: 100%; /* Full width on very small screens */
+    }
+}

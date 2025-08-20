@@ -1,0 +1,199 @@
+/* Chatbot Container */
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+}
+
+/* Chatbot Toggle Button */
+.chatbot-toggle {
+    background-color: #4CAF50; /* Shamba Direct Green */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 2.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.chatbot-toggle:hover {
+    transform: scale(1.05);
+}
+
+/* Ensure Boxicons are styled correctly */
+.chatbot-toggle .bxr {
+    font-size: 1.2em; /* Adjust icon size */
+}
+
+/* Chatbot Window */
+.chatbot-window {
+    background-color: #f0f2f5; /* Light grey background */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 350px; /* Standard chatbot width */
+    height: 450px; /* Standard chatbot height */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: absolute;
+    bottom: calc(100% + 15px); /* Position above the toggle button */
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.chatbot-window.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Chatbot Header */
+.chatbot-header {
+    background-color: #4CAF50; /* Shamba Direct Green */
+    color: white;
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.close-chat {
+    cursor: pointer;
+    font-size: 1.2em;
+    opacity: 0.8;
+}
+
+.close-chat:hover {
+    opacity: 1;
+}
+
+/* Chatbot Messages Area */
+.chatbot-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #e5ddd5; /* WhatsApp-like chat background */
+    border-bottom: 1px solid #ddd;
+}
+
+/* Individual Message Styles */
+.user-msg, .bot-msg {
+    max-width: 80%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    word-wrap: break-word; /* Ensure long words break */
+}
+
+.user-msg {
+    background-color: #dcf8c6; /* Light green for user messages */
+    align-self: flex-end; /* Align to the right */
+    margin-left: auto; /* Push to the right */
+    color: #333;
+}
+
+.bot-msg {
+    background-color: #ffffff; /* White for bot messages */
+    align-self: flex-start; /* Align to the left */
+    margin-right: auto; /* Push to the left */
+    color: #333;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Subtle shadow */
+}
+
+/* Typing Indicator */
+#typingIndicator {
+    font-style: italic;
+    color: #666;
+    animation: fadeinout 1.5s ease-in-out infinite; /* Simple typing animation */
+}
+
+.hidden {
+    display: none !important; /* Force hide */
+}
+
+/* Chat Form (Input Area) */
+#chatForm {
+    display: flex;
+    padding: 10px 15px;
+    background-color: #f0f2f5;
+    border-top: 1px solid #ddd;
+}
+
+#chatInput {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 0.9em;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+#chatInput:focus {
+    border-color: #4CAF50;
+}
+
+#chatForm button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+}
+
+#chatForm button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Chatbot Footer */
+.chatbot-footer {
+    background-color: #f0f2f5;
+    padding: 8px 15px;
+    font-size: 0.75em;
+    color: #777;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+/* Optional: Animation for typing indicator */
+@keyframes fadeinout {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .chatbot-container {
+        bottom: 10px;
+        right: 10px;
+    }
+    .chatbot-window {
+        width: calc(100vw - 40px); /* Full width minus margin */
+        height: 80vh; /* Taller on small screens */
+        bottom: calc(100% + 10px);
+        right: 0;
+        left: 0;
+        margin: auto; /* Center it */
+    }
+}

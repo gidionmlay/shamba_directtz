@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Choose Your Role | Shamba Direct</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/registration-role-selection.css?v=1.0">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="page-container">
+        <header class="top-header">
+            <div class="logo">
+                <img src="../assets/images/Shamba direct logo.png" alt="Shamba Direct Logo" loading="lazy">
+            </div>
+            <nav class="auth-links">
+                <p>Already have an account? <a href="./login.html">Login</a></p>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="title-section">
+                <h1>Join Shamba Direct</h1>
+                <p>Choose your role to get started</p>
+            </div>
+
+            <!-- BACKEND: Render registration role options dynamically here -->
+            <div class="role-cards-container">
+                <div class="role-card" data-role="farmer">
+                    <div class="card-icon"></div>
+                    <h3>Register as a Farmer</h3>
+                    <p>Access quality inputs, farming advice, and order tracking.</p>
+                    <a href="./farmer-registration.html" class="register-button">Register as Farmer</a>
+                </div>
+
+                <div class="role-card" data-role="supplier">
+                    <div class="card-icon"></div>
+                    <h3>Register as a Supplier</h3>
+                    <p>List and sell your verified agri-products to trusted farmers.</p>
+                    <a href="./supplier-registration.html" class="register-button">Register as Supplier</a>
+                </div>
+            </div>
+
+            <!-- BACKEND: Render support/contact info dynamically here -->
+            <div class="support-section">
+                <p>Need assistance? Reach us via:
+                    <a href="https://wa.me/255750586178" target="_blank" class="whatsapp-link">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Support
+                    </a> or our
+                    <a href="#" class="help-center-link">Help Center</a>.
+                </p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

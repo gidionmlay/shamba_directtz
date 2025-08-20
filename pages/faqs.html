@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQs - Shamba Direct</title>
+  <link rel="stylesheet" href="../css/global.css?v=1.0">
+  <link rel="stylesheet" href="../css/Header.css?v=1.0">
+  <link rel="stylesheet" href="../css/footer.css?v=1.0">
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      font-family: 'Segoe UI', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    .parallax-section {
+      height: 100vh;
+      background-attachment: scroll;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      position: relative;
+    }
+
+    .overlay-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      text-align: center;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .overlay-text h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .overlay-text p {
+      font-size: 1.2rem;
+    }
+
+    .content {
+      height: 60vh;
+      background-color: #f3f3f3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="shamba-navbar">
+    <div class="navbar-container">
+      <div class="logo-section">
+        <img src="../assets/images/Shamba direct logo.png" alt="Shamba Direct Logo" class="logo-img">
+      </div>
+  
+      <nav class="main-nav">
+        <a href="../index.html">Home</a>
+        <a href="./service.html">Service</a>
+        <a href="./about-us.html">About</a>
+        <a href="./contact.html">Reach Us</a>
+      </nav>
+  
+      <div class="icon-section">
+        <i class="ri-sun-line" id="theme-toggle"></i>
+        <i class="ri-global-line"></i>
+        <a href="./service.html"><i class="ri-shopping-cart-line"></i></a>
+        <a href="./login.html"><i class="ri-user-line"></i></a>
+      </div>
+  
+      <div class="auth-section">
+        <a href="./login.html" class="login-btn">Log in</a>
+        <a href="./registration-role-section.html" class="register-btn">Register</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- BACKEND: Render FAQ section/category dynamically here -->
+  <div class="parallax-section" id="section1"
+       style="background-image: url('../assets/images/IMG_3935.jpg');">
+    <div class="overlay-text">
+      <h1>Welcome to Shamba Direct</h1>
+      <p>Empowering Farmers and Suppliers</p>
+    </div>
+  </div>
+
+  <!-- Spacer content -->
+  <div class="content">Reliable Agricultural Solutions</div>
+
+  <!-- BACKEND: Render FAQ section/category dynamically here -->
+  <div class="parallax-section" id="section2"
+       style="background-image: url('../assets/images/IMG_3888.jpg');">
+    <div class="overlay-text">
+      <h1>Smart Input Ordering</h1>
+      <p>Order seeds, fertilizers & tools anytime</p>
+    </div>
+  </div>
+
+  <!-- Spacer content -->
+  <div class="content">We Serve Smallholder & Medium-scale Farmers</div>
+
+  <!-- BACKEND: Render FAQ section/category dynamically here -->
+  <div class="parallax-section" id="section3"
+       style="background-image: url('../assets/images/IMG_3935.jpg');">
+    <div class="overlay-text">
+      <h1>Instant Support</h1>
+      <p>Get real-time help and updates via WhatsApp & chatbot</p>
+    </div>
+  </div>
+ 
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="footer-container">
+      <div class="footer-col footer-col-brand">
+        <img src="../assets/images/Shamba direct logo.png" alt="Shamba Direct Logo" class="footer-logo" loading="lazy">
+        <p class="footer-tagline">Empowering Farmers. Connecting Inputs. Growing Together.</p>
+      </div>
+
+      <div class="footer-col footer-col-links">
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-links-list">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="./about-us.html">About Us</a></li>
+          <li><a href="./service.html">Service</a></li>
+          <li><a href="./contact.html">Reach Us</a></li>
+          <li><a href="./faqs.html">FAQs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-contact">
+        <h4 class="footer-heading">Contact & Support</h4>
+        <ul class="footer-contact-list">
+          <li>
+            <i class="fas fa-phone-alt footer-icon"></i>
+            <a href="tel:+255700123456">+255 752607104</a>
+          </li>
+          <li>
+            <i class="fas fa-envelope footer-icon"></i>
+            <a href="mailto:huduma@shambadirect.co.tz">huduma@shambadirect.co.tz</a>
+          </li>
+          <li>
+            <i class="fab fa-whatsapp footer-icon"></i>
+            <a href="https://wa.me/+255750586178" target="_blank">Chat with us</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-access">
+        <h4 class="footer-heading">Access Channels</h4>
+        <div class="access-channels-grid">
+          <div class="access-channel-item">
+            <i class="fas fa-globe footer-icon-large"></i>
+            <span>Mobile Application</span>
+          </div>
+          <div class="access-channel-item">
+            <i class="fab fa-whatsapp footer-icon-large"></i>
+            <span>WhatsApp Ordering</span>
+          </div>
+          <div class="access-channel-item">
+            <i class="fas fa-mobile-alt footer-icon-large"></i>
+            <span>USSD Access</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-col footer-col-social">
+        <h4 class="footer-heading">Follow Us</h4>
+        <div class="social-icons">
+          <a href="https://facebook.com/shambadirect" target="_blank" aria-label="Facebook">
+            <i class="fab fa-facebook-f social-icon"></i>
+          </a>
+          <a href="https://instagram.com/shambadirect" target="_blank" aria-label="Instagram">
+            <i class="fab fa-instagram social-icon"></i>
+          </a>
+          <a href="https://twitter.com/shambadirect" target="_blank" aria-label="Twitter">
+            <i class="fab fa-twitter social-icon"></i>
+          </a>
+          <a href="https://linkedin.com/company/shambadirect" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in social-icon"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <p class="footer-copyright">&copy; 2025 Shamba Direct. All rights reserved.</p>
+      <div class="footer-legal-links">
+        <a href="#terms">Terms of Service</a>
+        <span class="separator">|</span>
+        <a href="#privacy">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+ 
+  <!-- jQuery Script -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="../js/theme.js?v=1.0"></script>
+  <script src="../js/nav.js?v=1.0"></script>
+  <script>
+    $(window).on("scroll", function () {
+      let scrollTop = $(window).scrollTop();
+      $(".parallax-section").each(function () {
+        let offset = $(this).offset().top;
+        let distance = scrollTop - offset;
+        $(this).css("background-position", "center " + (distance * 0.4) + "px");
+      });
+    });
+  </script>
+</body>
+</html>
