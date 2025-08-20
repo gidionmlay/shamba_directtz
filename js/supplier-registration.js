@@ -5,6 +5,156 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressSteps = document.querySelectorAll('.progress-step');
     const progressLineFill = document.querySelector('.progress-line-fill');
     let currentStep = 1;
+    
+    // Regions and wards data
+    const regionsData = {
+        "Dar es Salaam": ["Kinondoni", "Ilala", "Temeke", "Kigamboni", "Ubungo"],
+        "Arusha": ["Arusha Urban", "Arusha Rural", "Meru", "Longido", "Monduli", "Karatu"],
+        "Dodoma": ["Dodoma Urban", "Bahi", "Chamwino", "Chemba", "Kondoa", "Kongwa", "Mpwapwa"],
+        "Mwanza": ["Nyamagana", "Ilemela", "Magu", "Misungwi", "Kwimba", "Sengerema", "Ukerewe"],
+        "Kilimanjaro": ["Moshi Urban", "Moshi Rural", "Hai", "Mwanga", "Rombo", "Kahe", "Same"],
+        "Tanga": ["Tanga Urban", "Tanga Rural", "Muheza", "Pangani", "Handeni", "Kilindi", "Lushoto", "Mkinga", "Korogwe"],
+        "Morogoro": ["Morogoro Urban", "Morogoro Rural", "Mvomero", "Kilosa", "Malinyi", "Ifakara"],
+        "Pwani": ["Dar es Salaam", "Kibaha", "Mkuranga", "Bagamoyo", "Kisarawe", "Mafia"],
+        "Lindi": ["Lindi Urban", "Lindi Rural", "Nachingwea", "Ruangwa", "Kilwa", "Namtumbo", "Liwale"],
+        "Mtwara": ["Mtwara Urban", "Mtwara Rural", "Nanyamba", "Newala", "Tandahimba", "Masasi", "Namtumbo"],
+        "Ruvuma": ["Songea Urban", "Songea Rural", "Tunduru", "Mbinga", "Namtumbo", "Nyasa"],
+        "Iringa": ["Iringa Urban", "Iringa Rural", "Kilolo", "Mufindi", "Njombe"],
+        "Mbeya": ["Mbeya Urban", "Mbeya Rural", "Rungwe", "Mbozi", "Kyela", "Chunya"],
+        "Singida": ["Singida Urban", "Singida Rural", "Mkalama", "Iramba", "Manyoni"],
+        "Tabora": ["Tabora Urban", "Tabora Rural", "Sikonge", "Nzega", "Uyui", "Kaliua"],
+        "Shinyanga": ["Shinyanga Urban", "Shinyanga Rural", "Kahama", "Ngorongoro", "Kishapu", "Bukombe"],
+        "Kagera": ["Bukoba Urban", "Bukoba Rural", "Missenyi", "Muleba", "Karagwe", "Ngara", "Chato"],
+        "Mara": ["Mara", "Musoma Urban", "Musoma Rural", "Tarime", "Rorya", "Serengeti", "Butiama"],
+        "Kigoma": ["Kigoma Urban", "Kigoma Rural", "Kasulu", "Kibondo", "Kakonko", "Ngozi"],
+        "Geita": ["Geita Urban", "Geita Rural", "Chato", "Nyang'hwale", "Bukombe", "Mbogwe"],
+        "Mjini Magharibi": ["Unguja", "Pemba"],
+        "Simiyu": ["Bariadi", "Busega", "Itilima", "Maswa", "Meatu"]
+    };
+    
+    // Get DOM elements
+    const regionSelect = document.getElementById('region');
+    const districtSelect = document.getElementById('district');
+    const regionPopup = document.getElementById('regionPopup');
+    const wardPopup = document.getElementById('wardPopup');
+    const regionList = document.getElementById('regionList');
+    const wardList = document.getElementById('wardList');
+    const regionPopupClose = regionPopup.querySelector('.close-popup');
+    const wardPopupClose = wardPopup.querySelector('.close-popup');
+    
+    // Open region popup when region select is clicked
+    regionSelect.addEventListener('click', function(e) {
+        e.preventDefault();
+        openRegionPopup();
+    });
+    
+    // Open ward popup when district select is clicked
+    districtSelect.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (regionSelect.value) {
+            openWardPopup(regionSelect.value);
+        } else {
+            alert('Please select a region first');
+        }
+    });
+    
+    // Close popups when close button is clicked
+    regionPopupClose.addEventListener('click', closeRegionPopup);
+    wardPopupClose.addEventListener('click', closeWardPopup);
+    
+    // Close popups when clicking outside
+    regionPopup.addEventListener('click', function(e) {
+        if (e.target === regionPopup) {
+            closeRegionPopup();
+        }
+    });
+    
+    wardPopup.addEventListener('click', function(e) {
+        if (e.target === wardPopup) {
+            closeWardPopup();
+        }
+    });
+    
+    // Function to open region popup
+    function openRegionPopup() {
+        // Populate region list
+        regionList.innerHTML = '';
+        for (const region in regionsData) {
+            const li = document.createElement('li');
+            li.className = 'region-item';
+            li.innerHTML = `${region} <i class="ri-arrow-right-line"></i>`;
+            li.addEventListener('click', function() {
+                selectRegion(region);
+            });
+            regionList.appendChild(li);
+        }
+        
+        // Show popup
+        regionPopup.style.display = 'flex';
+    }
+    
+    // Function to close region popup
+    function closeRegionPopup() {
+        regionPopup.style.display = 'none';
+    }
+    
+    // Function to open ward popup
+    function openWardPopup(region) {
+        // Populate ward list
+        wardList.innerHTML = '';
+        const wards = regionsData[region] || [];
+        wards.forEach(ward => {
+            const li = document.createElement('li');
+            li.className = 'ward-item';
+            li.innerHTML = `${ward} <i class="ri-arrow-right-line"></i>`;
+            li.addEventListener('click', function() {
+                selectWard(ward);
+            });
+            wardList.appendChild(li);
+        });
+        
+        // Show popup
+        wardPopup.style.display = 'flex';
+    }
+    
+    // Function to close ward popup
+    function closeWardPopup() {
+        wardPopup.style.display = 'none';
+    }
+    
+    // Function to select region
+    function selectRegion(region) {
+        // Clear existing options
+        regionSelect.innerHTML = '';
+        // Add selected region as an option
+        const option = document.createElement('option');
+        option.value = region;
+        option.textContent = region;
+        regionSelect.appendChild(option);
+        // Set the value
+        regionSelect.value = region;
+        // Enable district select
+        districtSelect.disabled = false;
+        // Clear district selection
+        districtSelect.innerHTML = '<option value="">Select Ward</option>';
+        // Close popup
+        closeRegionPopup();
+    }
+    
+    // Function to select ward
+    function selectWard(ward) {
+        // Clear existing options
+        districtSelect.innerHTML = '';
+        // Add selected ward as an option
+        const option = document.createElement('option');
+        option.value = ward;
+        option.textContent = ward;
+        districtSelect.appendChild(option);
+        // Set the value
+        districtSelect.value = ward;
+        // Close popup
+        closeWardPopup();
+    }
 
     // Event listeners for "Next" and "Previous" buttons
     document.querySelectorAll('.next-step-btn').forEach(button => {

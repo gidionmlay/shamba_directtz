@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const languageToggle = document.getElementById('language-toggle');
+    const languageToggleMobile = document.getElementById('language-toggle-mobile');
     const htmlElement = document.documentElement; // The <html> tag
 
     // Define your translations
@@ -182,4 +183,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const newLang = (currentLang === 'en' || currentLang === null) ? 'sw' : 'en';
         setLanguage(newLang);
     });
+    
+    // Toggle language on mobile click
+    if (languageToggleMobile) {
+        languageToggleMobile.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = (currentLang === 'en' || currentLang === null) ? 'sw' : 'en';
+            setLanguage(newLang);
+        });
+    }
 });

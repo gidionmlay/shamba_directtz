@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const languageToggleBtn = document.getElementById('language-toggle');
+    const languageToggleMobileBtn = document.getElementById('language-toggle-mobile');
 
     // All your translations here
     const appTranslations = {
@@ -289,5 +290,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const newLang = (currentLang === 'en') ? 'sw' : 'en'; // Toggle between English and Swahili
         applyLanguage(newLang);
     });
+    
+    // Add click listener to mobile toggle language button if it exists
+    if (languageToggleMobileBtn) {
+        languageToggleMobileBtn.addEventListener('click', () => {
+            const currentLang = document.body.getAttribute('data-language');
+            const newLang = (currentLang === 'en') ? 'sw' : 'en'; // Toggle between English and Swahili
+            applyLanguage(newLang);
+        });
+    }
 });
 

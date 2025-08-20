@@ -37,6 +37,9 @@
         <img src="../assets/images/Shamba direct logo.png" style="height: 6rem;" alt="Shamba Direct Logo" class="logo-img">
       </div>
   
+      <div class="menu-toggle" id="menuToggle">
+          <i class="ri-menu-line"></i> </div>
+      
       <nav class="main-nav">
           <a href="../index.html">Home</a>
           <a href="./service.html">Service</a>
@@ -46,7 +49,7 @@
   
       <div class="icon-section">
           <i class="ri-sun-line" id="theme-toggle"></i>
-          <i class="ri-global-line"></i>
+          <i class="ri-global-line" id="language-toggle"></i>
           <a href="./service.html"><i class="ri-shopping-cart-line"></i></a>
           <a href="./login.html"><i class="ri-user-line"></i></a>
         </div>
@@ -58,6 +61,30 @@
     </div>
   </header>
   
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-nav-offcanvas" id="mobileNavOffcanvas">
+        <div class="close-btn" id="closeMenu">
+            <i class="ri-close-line"></i> </div>
+        
+        <nav class="mobile-main-nav">
+            <a href="../index.html">Home</a>
+            <a href="./service.html">Service</a>
+            <a href="./about-us.html">About</a>
+            <a href="../pages/contact.html">Reach Us</a>
+        </nav>
+    
+        <div class="mobile-icon-section">
+            <i class="ri-sun-line" id="theme-toggle-mobile"></i>
+            <i class="ri-global-line" id="language-toggle-mobile"></i>
+            <a href="./service.html"><i class="ri-shopping-cart-line"></i></a>
+            <a href="./login.html"><i class="ri-user-line"></i></a>
+        </div>
+    
+        <div class="mobile-auth-section">
+            <a href="./login.html" class="login-btn">Log in</a>
+            <a href="./registration-role-section.html" class="register-btn">Register</a>
+        </div>
+    </div>
 
   <section class="contact-section">
     <div class="container">
@@ -235,7 +262,7 @@
     </div>
 
     <div class="footer-bottom-bar">
-        <p class="footer-copyright" data-lang-key="footer_copyright"> 2025 Shamba Direct. All rights reserved.</p>
+        <p class="footer-copyright" data-lang-key="footer_copyright">2025 Shamba Direct</p>
         <div class="footer-legal-links">
             <a href="#terms" data-lang-key="footer_terms">Terms of Service</a>
             <span class="separator">|</span>
@@ -263,6 +290,7 @@
 <script src="../js/chatbot.js?v=1.0"></script>
 <script src="../js/theme.js?v=1.0"></script>
 <script src="../js/nav.js?v=1.0"></script>
+<script src="../js/language-toggle.js?v=1.0"></script>
 
 </body>
 </html>
