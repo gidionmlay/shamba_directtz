@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nav_reach_us: "Reach Us",
             auth_login: "Log in",
             auth_register: "Register",
+            auth_admin: "Admin",
 
             // Hero Section
             hero_title: "About Us",
@@ -72,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             access_channel_whatsapp: "WhatsApp Ordering",
             access_channel_ussd: "USSD Access",
             footer_follow_us_heading: "Follow Us",
-            footer_copyright: "&copy; 2025 Shamba Direct. All rights reserved.",
+            footer_copyright: "2025 Shamba Direct. All rights reserved.",
             footer_terms_of_service: "Terms of Service",
             footer_privacy_policy: "Privacy Policy",
 
@@ -91,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nav_reach_us: "Tufikie",
             auth_login: "Ingia",
             auth_register: "Jisajili",
+            auth_admin: "Msimamizi",
 
             // Hero Section
             hero_title: "Kuhusu Sisi",
@@ -147,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
             access_channel_whatsapp: "Kuagiza kwa WhatsApp",
             access_channel_ussd: "Ufikiaji wa USSD",
             footer_follow_us_heading: "Tufuate",
-            footer_copyright: "&copy; 2025 Shamba Direct. Haki zote zimehifadhiwa.",
+            footer_copyright: "2025 Shamba Direct. Haki zote zimehifadhiwa.",
             footer_terms_of_service: "Masharti ya Huduma",
             footer_privacy_policy: "Sera ya Faragha",
 

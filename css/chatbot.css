@@ -1,8 +1,8 @@
 /* Chatbot Container */
 .chatbot-container {
     position: fixed;
-    bottom: 230px; /* Position above WhatsApp button on larger screens */
-    right: 50px; /* Align with WhatsApp button on larger screens */
+    bottom: 100px; /* Adjusted to be above WhatsApp button */
+    right: 20px; /* Consistent spacing from right edge */
     z-index: 1000;
     font-family: Arial, sans-serif;
 }
@@ -38,8 +38,8 @@
     background-color: #f0f2f5; /* Light grey background */
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    width: 350px; /* Standard chatbot width */
-    height: 450px; /* Standard chatbot height */
+    width: min(350px, 90vw); /* Responsive width with max limit */
+    height: min(450px, 70vh); /* Responsive height with max limit */
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -160,6 +160,7 @@
     cursor: pointer;
     font-size: 0.9em;
     transition: background-color 0.2s ease;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 #chatForm button[type="submit"]:hover {
@@ -186,32 +187,45 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .chatbot-container {
-        bottom: 150px; /* Position above WhatsApp button on medium screens */
-        right: 20px; /* Align with WhatsApp button on medium screens */
+        bottom: 90px; /* Adjusted positioning for medium screens */
+        right: 15px; /* Consistent spacing */
     }
     
     .chatbot-window {
-        width: calc(100vw - 40px); /* Full width minus margin */
-        height: 80vh; /* Taller on small screens */
+        width: min(400px, 95vw); /* Better responsive width */
+        height: min(500px, 75vh); /* Better responsive height */
         bottom: calc(100% + 10px);
-        right: 0;
-        left: 0;
-        margin: auto; /* Center it */
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+    }
+    
+    .chatbot-window.active {
+        transform: translateX(-50%) translateY(0);
     }
 }
 
 @media (max-width: 480px) {
     .chatbot-container {
-        bottom: 140px; /* Position above WhatsApp button on small screens */
-        right: 17px; /* Align with WhatsApp button on small screens */
+        bottom: 80px; /* Adjusted positioning for small screens */
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
     }
     
     .chatbot-window {
-        width: calc(100vw - 34px); /* Full width minus margin */
-        height: 85vh; /* Taller on small screens */
-        bottom: calc(100% + 10px);
-        right: 0;
-        left: 0;
-        margin: auto; /* Center it */
+        position: fixed; /* Use fixed positioning for proper centering */
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        width: calc(100vw - 40px); /* Full width minus margin */
+        height: 70vh; /* Taller on small screens */
+        bottom: auto; /* Remove bottom positioning */
+        right: auto; /* Remove right positioning */
+        transform: translate(-50%, -50%); /* Center both horizontally and vertically */
+        margin: 0; /* Remove any margin */
+    }
+    
+    .chatbot-window.active {
+        transform: translate(-50%, -50%); /* Keep centered when active */
     }
 }

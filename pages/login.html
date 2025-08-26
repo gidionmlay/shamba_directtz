@@ -56,6 +56,14 @@
         </div>
     </div>
     <script src="../js/login.js?v=1.0"></script>
+    <script>
+        // Initialize the login form when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof initLoginForm === 'function') {
+                initLoginForm();
+            }
+        });
+    </script>
     <script type="module" src="../js/app.js?v=1.0"></script>
 </body>
 </html>

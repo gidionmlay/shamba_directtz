@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Shamba Direct</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/admin-login.css?v=1.0">
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <img src="../../assets/images/Shamba direct logo.png" alt="Shamba Direct Logo" class="logo-img">
+                <h1>Admin Login</h1>
+                <p>Welcome back! Please enter your credentials</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="ri-mail-line"></i>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="ri-lock-line"></i>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        <i class="ri-eye-off-line password-toggle" id="togglePassword"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <span>Login</span>
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+                
+                <div class="form-footer">
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+            </form>
+            
+            <div class="login-footer">
+                <p>Don't have an account? <a href="../../index.html">Return to main site</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/admin-login.js?v=1.0"></script>
+</body>
+</html>

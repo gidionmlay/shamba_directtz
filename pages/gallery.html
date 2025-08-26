@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shamba Direct Gallery - Farmer Activities, Events & Innovations</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css?v=1.0">
+    <link rel="stylesheet" href="../css/buttons.css?v=1.0">
+    <link rel="stylesheet" href="../css/footer.css?v=1.0">
+    <link rel="stylesheet" href="../css/Header.css?v=1.0">
+    <link rel="stylesheet" href="../css/gallery.css?v=1.0">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+<header class="shamba-navbar">
+    <div class="navbar-container">
+        <div class="logo-section">
+            <img src="../assets/images/Shamba direct logo.png" alt="Shamba Direct Logo" class="logo-img">
+        </div>
+
+        <div class="menu-toggle" id="menuToggle">
+            <i class="ri-menu-line"></i> </div>
+        
+        <nav class="main-nav">
+            <a href="../index.html">Home</a>
+            <a href="./service.html">Service</a>
+            <a href="./about-us.html">About</a>
+            <a href="./contact.html">Reach Us</a>
+            <a href="./gallery.html" class="active">Gallery</a>
+        </nav>
+
+        <div class="icon-section">
+            <i class="ri-sun-line" id="theme-toggle"></i>
+            <i class="ri-global-line" id="language-toggle"></i>
+            <a href="./service.html"><i class="ri-shopping-cart-line"></i></a>
+            <a href="./login.html"><i class="ri-user-line"></i></a>
+        </div>
+    
+        <div class="auth-section">
+            <a href="./login.html" class="login-btn">Log in</a>
+            <a href="./registration-role-section.html" class="register-btn">Register</a>
+        </div>
+    </div>
+</header>
+
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<div class="mobile-nav-offcanvas" id="mobileNavOffcanvas">
+    <div class="close-btn" id="closeMenu">
+        <i class="ri-close-line"></i> </div>
+    
+    <nav class="mobile-main-nav">
+        <a href="../index.html">Home</a>
+        <a href="./service.html">Service</a>
+        <a href="./about-us.html">About</a>
+        <a href="./contact.html">Reach Us</a>
+        <a href="./gallery.html" class="active">Gallery</a>
+    </nav>
+
+    <div class="mobile-icon-section">
+        <i class="ri-sun-line" id="theme-toggle-mobile"></i>
+        <i class="ri-global-line" id="language-toggle-mobile"></i>
+        <a href="./service.html"><i class="ri-shopping-cart-line"></i></a>
+        <a href="./login.html"><i class="ri-user-line"></i></a>
+    </div>
+
+    <div class="mobile-auth-section">
+        <a href="./login.html" class="login-btn">Log in</a>
+        <a href="./registration-role-section.html" class="register-btn">Register</a>
+    </div>
+</div>
+
+<!-- Gallery Hero Section -->
+<section class="gallery-hero">
+    <h1>Shamba Direct Gallery – Farmer Activities, Events & Innovations</h1>
+    <p>Explore how Shamba Direct impacts smallholder farmers and the AgriTech community.</p>
+</section>
+
+<!-- Featured Carousel -->
+<section class="featured-carousel">
+    <div class="carousel-container">
+        <div class="carousel-wrapper">
+            <div class="carousel-slide active">
+                <img src="../assets/images/blog/activity1.jpg" alt="Farmer Training Session">
+                <div class="carousel-caption">
+                    <h3>Farmer Training in Mwanza</h3>
+                    <p>Our team conducted a training session in Mwanza on sustainable farming practices</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="../assets/images/blog/activity2.jpg" alt="Input Distribution">
+                <div class="carousel-caption">
+                    <h3>Input Distribution to Cooperative Members</h3>
+                    <p>We distributed verified seeds and fertilizers to over 200 farmers</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="../assets/images/blog/activity3.jpg" alt="Market Linkage Event">
+                <div class="carousel-caption">
+                    <h3>Market Linkage Event in Dodoma</h3>
+                    <p>Connecting farmers directly with buyers to ensure fair prices</p>
+                </div>
+            </div>
+        </div>
+        
+        <button class="carousel-nav prev-slide" aria-label="Previous slide">&#10094;</button>
+        <button class="carousel-nav next-slide" aria-label="Next slide">&#10095;</button>
+        
+        <div class="carousel-dots">
+            <span class="dot active" data-slide-index="0"></span>
+            <span class="dot" data-slide-index="1"></span>
+            <span class="dot" data-slide-index="2"></span>
+        </div>
+    </div>
+</section>
+
+<!-- Media Filters/Categories -->
+<div class="category-filter">
+    <button class="category-filter-btn active" data-category="all">All</button>
+    <button class="category-filter-btn" data-category="farmer-visits">Farmer Visits</button>
+    <button class="category-filter-btn" data-category="training">Training</button>
+    <button class="category-filter-btn" data-category="events">Events</button>
+    <button class="category-filter-btn" data-category="partners">Partners</button>
+    <button class="category-filter-btn" data-category="technology">Technology</button>
+</div>
+
+<!-- Media Grid -->
+<section class="media-grid">
+    <!-- Media Card 1 -->
+    <div class="media-card" data-category="farmer-visits">
+        <div class="media-wrapper">
+            <img src="../assets/images/blog/activity1.jpg" alt="Shamba Direct Visits Farmers in Arusha" class="media-image" loading="lazy">
+            <div class="media-overlay">
+                <i class="ri-fullscreen-line"></i>
+            </div>
+        </div>
+        <div class="media-content">
+            <span class="media-date">August 1, 2025</span>
+            <span class="media-category">Farmer Visits</span>
+            <h3 class="media-title">Shamba Direct Visits Farmers in Arusha</h3>
+            <p class="media-description">Our field team met with over 50 farmers in Arusha to discuss improved seed varieties and pest control.</p>
+        </div>
+    </div>
+    
+    <!-- Media Card 2 -->
+    <div class="media-card" data-category="events">
+        <div class="media-wrapper">
+            <img src="../assets/images/blog/blog5.jpg" alt="AGRRA Policy Session Participation" class="media-image" loading="lazy">
+            <div class="media-overlay">
+                <i class="ri-fullscreen-line"></i>
+            </div>
+        </div>
+        <div class="media-content">
+            <span class="media-date">July 18, 2025</span>
+            <span class="media-category">Events</span>
+            <h3 class="media-title">Yeffa Bootcamp</h3>
+            <p class="media-description">Shamba Direct joined the Yeffa Bootcamp to enhance skills in digital agriculture.</p>
+        </div>
+    </div>
+    
+    <!-- Media Card 3 -->
+    <div class="media-card" data-category="training">
+        <div class="media-wrapper">
+            <img src="../assets/images/blog/blog3.jpg" alt="Smallholder Training Session" class="media-image" loading="lazy">
+            <div class="media-overlay">
+                <i class="ri-fullscreen-line"></i>
+            </div>
+        </div>
+        <div class="media-content">
+            <span class="media-date">June 3, 2025</span>
+            <span class="media-category">Training</span>
+            <h3 class="media-title">Smallholder Training Session</h3>
+            <p class="media-description">Hands-on training for farmers on proper use of inputs and modern farming techniques.</p>
+        </div>
+    </div>
+    
+    <!-- Media Card 4 -->
+    <div class="media-card" data-category="technology">
+        <div class="media-wrapper">
+            <img src="../assets/images/blog/blog4.jpg" alt="Maize Price Trend" class="media-image" loading="lazy">
+            <div class="media-overlay">
+                <i class="ri-fullscreen-line"></i>
+            </div>
+        </div>
+        <div class="media-content">
+            <span class="media-date">May 15, 2025</span>
+            <span class="media-category">Technology</span>
+            <h3 class="media-title">Maize Price Trend</h3>
+            <p class="media-description">Infographic showing maize price trends and market analysis for smallholder farmers.</p>
+        </div>
+    </div>
+    
+    <!-- Media Card 5 -->
+    <div class="media-card" data-category="farmer-visits">
+        <div class="media-wrapper">
+            <img src="../assets/images/blog/blog6.jpg" alt="Farms Before & After Using Verified Inputs" class="media-image" loading="lazy">
+            <div class="media-overlay">
+                <i class="ri-fullscreen-line"></i>
+            </div>
+        </div>
+        <div class="media-content">
+            <span class="media-date">April 22, 2025</span>
+            <span class="media-category">Farmer Visits</span>
+            <h3 class="media-title">Farms Before & After Using Verified Inputs</h3>
+            <p class="media-description">Before/After slider showing the impact of using verified inputs on farm productivity.</p>
+        </div>
+    </div>
+    
+    <!-- Media Card 6 -->
+    <div class="media-card" data-category="training">
+        <div class="media-wrapper">
+            <img src="../assets/images/blog/blog2.jpg" alt="Farmer Training in Dodoma" class="media-image" loading="lazy">
+            <div class="media-overlay">
+                <i class="ri-fullscreen-line"></i>
+            </div>
+        </div>
+        <div class="media-content">
+            <span class="media-date">March 10, 2025</span>
+            <span class="media-category">Training</span>
+            <h3 class="media-title">Farmer Training in Dodoma</h3>
+            <p class="media-description">Comprehensive training session on soil health and sustainable farming practices.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Pagination -->
+<div class="pagination">
+    <button class="pagination-btn active">1</button>
+    <button class="pagination-btn">2</button>
+    <button class="pagination-btn">3</button>
+    <button class="pagination-btn"><i class="ri-arrow-right-s-line"></i></button>
+</div>
+
+<!-- Timeline View -->
+<section class="timeline-section">
+    <h2>Gallery Timeline</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">August 1, 2025</span>
+                <h3 class="timeline-title">Shamba Direct Visits Farmers in Arusha</h3>
+                <p>Our field team met with over 50 farmers in Arusha to discuss improved seed varieties, pest control, and access to inputs.</p>
+                <div class="timeline-media">
+                    <img src="../assets/images/blog/blog5.jpg" alt="Arusha Visit">
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">July 18, 2025</span>
+                <h3 class="timeline-title">AGRRA Policy Session Participation</h3>
+                <p>Shamba Direct joined the AGRRA session to discuss agricultural policy and how digital platforms can support national food security.</p>
+                <div class="timeline-media">
+                    <img src="../assets/images/blog/blog6.jpg" alt="AGRRA Session">
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">June 3, 2025</span>
+                <h3 class="timeline-title">Smallholder Training Session</h3>
+                <p>Hands-on training for farmers on proper use of inputs and modern farming techniques in Dodoma.</p>
+                <div class="timeline-media">
+                    <img src="../assets/images/blog/blog3.jpg" alt="Training Session">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="gallery-cta">
+    <h2>Join Shamba Direct Events</h2>
+    <p>Get access to quality agricultural inputs, expert advice, and fair market prices</p>
+    <a href="./registration-role-section.html" class="btn-primary">Register Now</a>
+</section>
+
+<footer class="footer-section">
+    <div class="footer-container">
+
+        <div class="footer-col footer-col-brand">
+            <img src="../assets/images/Shamba direct logo.png" alt="Shamba Direct Logo" class="footer-logo" loading="lazy">
+            <p class="footer-tagline">Empowering Farmers. Connecting Inputs. Growing Together.</p>
+        </div>
+
+        <div class="footer-col footer-col-links">
+            <h4 class="footer-heading">Quick Links</h4>
+            <ul class="footer-links-list">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="./about-us.html">About Us</a></li>
+                <li><a href="./service.html">Service</a></li>
+                <li><a href="./contact.html">Reach Us</a></li>
+                <li><a href="./faqs.html">FAQs</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col footer-col-contact">
+            <h4 class="footer-heading">Contact & Support</h4>
+            <ul class="footer-contact-list">
+                <li>
+                    <i class="fas fa-phone-alt footer-icon"></i>
+                    <a href="tel:+255700123456">+255 752607104</a>
+                </li>
+                <li>
+                    <i class="fas fa-envelope footer-icon"></i>
+                    <a href="mailto:huduma@shambadirect.co.tz">huduma@shambadirect.co.tz</a>
+                </li>
+                <li>
+                    <i class="fab fa-whatsapp footer-icon"></i>
+                    <a href="https://wa.me/+255750586178" target="_blank">Chat with us</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer-col footer-col-access">
+            <h4 class="footer-heading">Access Channels</h4>
+            <div class="access-channels-grid">
+                <div class="access-channel-item">
+                    <i class="fas fa-globe footer-icon-large"></i>
+                    <span>Mobile App</span>
+                </div>
+                <div class="access-channel-item">
+                    <i class="fab fa-whatsapp footer-icon-large"></i>
+                    <span>WhatsApp Ordering</span>
+                </div>
+                <div class="access-channel-item">
+                    <i class="fas fa-mobile-alt footer-icon-large"></i>
+                    <span>USSD Access</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-col footer-col-social">
+            <h4 class="footer-heading">Follow Us</h4>
+            <div class="social-icons">
+                <a href="https://facebook.com/shambadirect" target="_blank" aria-label="Facebook">
+                    <i class="fab fa-facebook-f social-icon"></i>
+                </a>
+                <a href="https://www.instagram.com/shambadirecttz/" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram social-icon"></i>
+                </a>
+                <a href="https://twitter.com/shambadirect" target="_blank" aria-label="Twitter">
+                    <i class="fab fa-twitter social-icon"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/shamba-direct-36ab75362/" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in social-icon"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom-bar">
+        <p class="footer-copyright">2025 Shamba Direct</p>
+        <div class="footer-legal-links">
+            <a href="#terms">Terms of Service</a>
+            <span class="separator">|</span>
+            <a href="#privacy">Privacy Policy</a>
+        </div>
+    </div>
+</footer>
+
+<a href="https://wa.me/255750586178"
+  class="whatsapp-float"
+  target="_blank"
+  aria-label="Chat on WhatsApp"
+>
+  <i class="bxr bx-message-circle bx-flip-horizontal bx-bounce "></i>
+</a>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <span class="close-lightbox">&times;</span>
+    <div class="lightbox-content">
+        <img src="" alt="" id="lightbox-img">
+        <div class="lightbox-caption">
+            <h3 id="lightbox-title"></h3>
+            <p id="lightbox-desc"></p>
+        </div>
+    </div>
+    <a class="prev-lightbox" id="prev-lightbox">&#10094;</a>
+    <a class="next-lightbox" id="next-lightbox">&#10095;</a>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="../js/nav.js?v=1.0"></script>
+<script src="../js/gallery.js?v=1.0"></script>
+
+</body>
+</html>

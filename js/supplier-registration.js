@@ -199,26 +199,31 @@ document.addEventListener('DOMContentLoaded', () => {
         btnText.style.display = 'none';
         spinner.style.display = 'inline-block';
 
+        // Prepare form data
         const formData = new FormData(form);
-
-        // This is a placeholder for the API endpoint
-        const apiEndpoint = form.action;
+        const data = {};
+        for (const [key, value] of formData.entries()) {
+            data[key] = value;
+        }
 
         try {
-            const response = await fetch(apiEndpoint, {
-                method: form.method,
-                body: formData,
+            // Make API call to register supplier
+            const response = await fetch('/api/register/supplier', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             });
 
+            const result = await response.json();
+
             if (response.ok) {
-                const result = await response.json();
-                console.log('Registration successful:', result);
-                alert('Supplier registration successful! You will be redirected shortly.');
-                window.location.href = '/public/pages/success.html'; // Example redirect
+                alert('Supplier registration submitted successfully! Your account is pending admin approval.');
+                // Redirect to success page
+                window.location.href = './success.html';
             } else {
-                const error = await response.json();
-                console.error('Registration failed:', error);
-                alert(`Registration failed: ${error.message || 'An unexpected error occurred.'}`);
+                alert(`Registration failed: ${result.message || 'An unexpected error occurred.'}`);
             }
         } catch (error) {
             console.error('Error during registration:', error);

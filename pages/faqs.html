@@ -3,11 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAQs - Shamba Direct</title>
-  <link rel="stylesheet" href="../css/global.css?v=1.0">
-  <link rel="stylesheet" href="../css/Header.css?v=1.0">
+  <title data-lang-key="faqs_page_title">FAQs - Shamba Direct</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+  <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css'rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css?v=1.0">
+  <link rel="stylesheet" href="../css/buttons.css?v=1.0">
   <link rel="stylesheet" href="../css/footer.css?v=1.0">
+  <link rel="stylesheet" href="../css/Header.css?v=1.0">
+  <link rel="stylesheet" href="../css/chatbot.css?v=1.0">
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <!-- FAQ Schema Markup will be dynamically updated -->
+  <script type="application/ld+json" id="faqSchema">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I place an order for agricultural inputs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can place an order through our website or mobile app. Simply browse our catalog, select the products you need, add them to your cart, and proceed to checkout. You can also order via WhatsApp by sending a message to our support number."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What payment methods do you accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We accept payments through M-Pesa, Tigo Pesa, Airtel Money, and bank transfers. For farmers, we also offer a credit system where you can get inputs now and pay after harvest."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does delivery take?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Delivery typically takes 3-5 business days to most areas in Tanzania. Delivery times may vary based on your location and order size."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you offer training on how to use the inputs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, we provide free training sessions and resources on proper usage of agricultural inputs. You can access our educational resources section or request a training session through our support channels."
+        }
+      }
+    ]
+  }
+  </script>
   <style>
     * {
       margin: 0;
@@ -18,204 +68,964 @@
     body, html {
       font-family: 'Segoe UI', sans-serif;
       scroll-behavior: smooth;
+      background-color: #f9f9f9;
+      color: #333;
     }
 
-    .parallax-section {
-      height: 100vh;
-      background-attachment: scroll;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center center;
+    .faqs-container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .faqs-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-top: 20px;
+    }
+
+    .faqs-header h1 {
+      font-size: 2.5rem;
+      color: #2b3b48;
+      margin-bottom: 15px;
+    }
+
+    .faqs-header p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Search Bar */
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto 30px;
       position: relative;
     }
 
-    .overlay-text {
+    .search-container input {
+      width: 100%;
+      padding: 15px 20px 15px 50px;
+      border-radius: 30px;
+      border: 2px solid #e0e0e0;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .search-container input:focus {
+      border-color: #4CAF50;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+    }
+
+    .search-icon {
       position: absolute;
+      left: 20px;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      text-align: center;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-    }
-
-    .overlay-text h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .overlay-text p {
+      transform: translateY(-50%);
+      color: #888;
       font-size: 1.2rem;
     }
 
-    .content {
-      height: 60vh;
-      background-color: #f3f3f3;
+    /* Category Filter */
+    .category-filter {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .category-btn {
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .category-btn:hover, .category-btn.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    /* FAQ Categories */
+    .faq-category {
+      margin-bottom: 40px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .category-header {
+      padding: 20px;
+      background-color: #4CAF50;
+      color: white;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .category-header i {
+      margin-right: 15px;
+      font-size: 1.5rem;
+    }
+
+    .category-header::after {
+      margin-left: auto;
+      content: '\25BC';
+      transition: transform 0.3s ease;
+    }
+
+    .category-header.collapsed::after {
+      transform: rotate(-90deg);
+    }
+
+    .faq-items {
+      padding: 0 20px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #eee;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-question {
+      padding: 20px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      font-size: 1.1rem;
+    }
+
+    .faq-question::before {
+      content: '\25B6';
+      margin-right: 15px;
+      transition: transform 0.3s ease;
+      color: #4CAF50;
+      font-size: 0.8rem;
+    }
+
+    .faq-question.active::before {
+      transform: rotate(90deg);
+    }
+
+    .faq-answer {
+      padding: 0 0 20px 30px;
+      color: #666;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .faq-answer.show {
+      display: block;
+    }
+
+    .highlight {
+      background-color: #ffeb3b;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+
+    /* Feedback System */
+    .feedback-container {
+      display: flex;
+      align-items: center;
+      margin-top: 15px;
+      padding: 10px 0;
+    }
+
+    .feedback-text {
+      margin-right: 10px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .feedback-btn {
+      background: none;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
-      color: #333;
+      cursor: pointer;
+      margin: 0 5px;
+      transition: all 0.3s ease;
+    }
+
+    .feedback-btn:hover {
+      border-color: #4CAF50;
+      color: #4CAF50;
+    }
+
+    .feedback-btn.active {
+      background-color: #4CAF50;
+      color: white;
+      border-color: #4CAF50;
+    }
+
+    /* Chatbot CTA */
+    .chatbot-cta {
+      text-align: center;
+      margin: 40px 0;
+      padding: 30px;
+      background-color: #f0f8ff;
+      border-radius: 10px;
+      border: 1px dashed #4CAF50;
+    }
+
+    .chatbot-cta h3 {
+      margin-bottom: 15px;
+      color: #2b3b48;
+    }
+
+    .chatbot-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-btn:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .chatbot-btn i {
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      margin: 40px 0;
+    }
+
+    .contact-section h2 {
+      margin-bottom: 20px;
+      color: #2b3b48;
+    }
+
+    .contact-options {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .contact-option {
+      display: flex;
+      align-items: center;
+      padding: 15px 25px;
+      background-color: white;
+      border-radius: 30px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .contact-option:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-option i {
+      font-size: 1.5rem;
+      margin-right: 10px;
+      color: #4CAF50;
+    }
+
+    /* No Results */
+    .no-results {
+      text-align: center;
+      padding: 40px 20px;
+      color: #666;
+    }
+
+    .no-results i {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .faqs-header h1 {
+        font-size: 2rem;
+      }
+      
+      .category-header {
+        font-size: 1.1rem;
+      }
+      
+      .faq-question {
+        font-size: 1rem;
+      }
+      
+      .category-filter {
+        gap: 8px;
+      }
+      
+      .category-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .contact-options {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .faqs-container {
+        padding: 0 15px;
+      }
+      
+      .faqs-header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .search-container input {
+        padding: 12px 15px 12px 45px;
+      }
+      
+      .category-header {
+        padding: 15px;
+        font-size: 1rem;
+      }
+      
+      .faq-question {
+        padding: 15px 0;
+      }
+      
+      .faq-answer {
+        padding: 0 0 15px 25px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="shamba-navbar">
+<header class="shamba-navbar">
     <div class="navbar-container">
-      <div class="logo-section">
-        <img src="../assets/images/Shamba direct logo.png" alt="Shamba Direct Logo" class="logo-img">
-      </div>
-  
-      <nav class="main-nav">
-        <a href="../index.html">Home</a>
-        <a href="./service.html">Service</a>
-        <a href="./about-us.html">About</a>
-        <a href="./contact.html">Reach Us</a>
-      </nav>
-  
-      <div class="icon-section">
-        <i class="ri-sun-line" id="theme-toggle"></i>
-        <i class="ri-global-line"></i>
+        <div class="logo-section">
+            <img src="../assets/images/Shamba direct logo.png" alt="Shamba Direct Logo" class="logo-img">
+        </div>
+
+        <div class="menu-toggle" id="menuToggle">
+            <i class="ri-menu-line"></i> </div>
+        
+        <nav class="main-nav">
+            <a href="../index.html" data-lang-key="nav_home">Home</a>
+            <a href="./service.html" data-lang-key="nav_service">Service</a>
+            <a href="./about-us.html" data-lang-key="nav_about">About</a>
+            <a href="./contact.html" data-lang-key="nav_reach_us">Reach Us</a>
+            <a href="./gallery.html" data-lang-key="nav_gallery">Gallery</a>
+        </nav>
+
+        <div class="icon-section">
+            <i class="ri-sun-line" id="theme-toggle"></i>
+            <i class="ri-global-line" id="language-toggle"></i>
+            <a href="./service.html"><i class="ri-shopping-cart-line"></i></a>
+            <a href="./login.html"><i class="ri-user-line"></i></a>
+        </div>
+    
+        <div class="auth-section">
+            <a href="./login.html" class="login-btn" data-lang-key="auth_login">Log in</a>
+            <a href="./registration-role-section.html" class="register-btn" data-lang-key="auth_register">Register</a>
+        </div>
+    </div>
+</header>
+
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<div class="mobile-nav-offcanvas" id="mobileNavOffcanvas">
+    <div class="close-btn" id="closeMenu">
+        <i class="ri-close-line"></i> </div>
+    
+    <nav class="mobile-main-nav">
+        <a href="../index.html" data-lang-key="nav_home">Home</a>
+        <a href="./service.html" data-lang-key="nav_service">Service</a>
+        <a href="./about-us.html" data-lang-key="nav_about">About</a>
+        <a href="./contact.html" data-lang-key="nav_reach_us">Reach Us</a>
+        <a href="./gallery.html" data-lang-key="nav_gallery">Gallery</a>
+    </nav>
+
+    <div class="mobile-icon-section">
+        <i class="ri-sun-line" id="theme-toggle-mobile"></i>
+        <i class="ri-global-line" id="language-toggle-mobile"></i>
         <a href="./service.html"><i class="ri-shopping-cart-line"></i></a>
         <a href="./login.html"><i class="ri-user-line"></i></a>
+    </div>
+
+    <div class="mobile-auth-section">
+        <a href="./login.html" class="login-btn" data-lang-key="auth_login">Log in</a>
+        <a href="./registration-role-section.html" class="register-btn" data-lang-key="auth_register">Register</a>
+    </div>
+</div>
+
+  <!-- FAQs Content -->
+  <div class="faqs-container">
+    <div class="faqs-header">
+      <h1 data-lang-key="faqs_title">Frequently Asked Questions</h1>
+      <p data-lang-key="faqs_subtitle">Find answers to common questions about our services, products, and processes</p>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <i class="bx bx-search search-icon"></i>
+      <input type="text" id="faqSearch" data-lang-placeholder="faqs_search_placeholder">
+    </div>
+
+    <!-- Category Filter -->
+    <div class="category-filter">
+      <button class="category-btn active" data-category="all">All</button>
+      <button class="category-btn" data-category="farmers"><i class="bx bx-leaf"></i> Farmers</button>
+      <button class="category-btn" data-category="suppliers"><i class="bx bx-truck"></i> Suppliers</button>
+      <button class="category-btn" data-category="financial"><i class="bx bx-credit-card"></i> Financial Partners</button>
+      <button class="category-btn" data-category="agents"><i class="bx bx-user-circle"></i> Agents</button>
+      <button class="category-btn" data-category="general"><i class="bx bx-info-circle"></i> General</button>
+    </div>
+
+    <!-- FAQ Categories -->
+    <!-- Farmers Category -->
+    <div class="faq-category" data-category="farmers">
+      <div class="category-header">
+        <i class="bx bx-leaf"></i>
+        <span>Farmers</span>
       </div>
-  
-      <div class="auth-section">
-        <a href="./login.html" class="login-btn">Log in</a>
-        <a href="./registration-role-section.html" class="register-btn">Register</a>
+      <div class="faq-items">
+        <div class="faq-item">
+          <div class="faq-question">How do I place an order for agricultural inputs?</div>
+          <div class="faq-answer">
+            <p>You can place an order through our website or mobile app. Simply browse our catalog, select the products you need, add them to your cart, and proceed to checkout. You can also order via WhatsApp by sending a message to our support number.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What payment methods do you accept?</div>
+          <div class="faq-answer">
+            <p>We accept payments through M-Pesa, Tigo Pesa, Airtel Money, and bank transfers. For farmers, we also offer a credit system where you can get inputs now and pay after harvest.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How long does delivery take?</div>
+          <div class="faq-answer">
+            <p>Delivery typically takes 3-5 business days to most areas in Tanzania. Delivery times may vary based on your location and order size. For urgent orders, we offer express delivery options.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Do you offer training on how to use the inputs?</div>
+          <div class="faq-answer">
+            <p>Yes, we provide free training sessions and resources on proper usage of agricultural inputs. You can access our educational resources section or request a training session through our support channels. We also have video tutorials available in our app.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </header>
 
-  <!-- BACKEND: Render FAQ section/category dynamically here -->
-  <div class="parallax-section" id="section1"
-       style="background-image: url('../assets/images/IMG_3935.jpg');">
-    <div class="overlay-text">
-      <h1>Welcome to Shamba Direct</h1>
-      <p>Empowering Farmers and Suppliers</p>
+    <!-- Suppliers Category -->
+    <div class="faq-category" data-category="suppliers">
+      <div class="category-header">
+        <i class="bx bx-truck"></i>
+        <span>Suppliers</span>
+      </div>
+      <div class="faq-items">
+        <div class="faq-item">
+          <div class="faq-question">How do I become a supplier for Shamba Direct?</div>
+          <div class="faq-answer">
+            <p>To become a supplier, you need to register on our platform and provide necessary documentation about your business. Our team will review your application and contact you for further steps. You can start the process by visiting our supplier registration page.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What are the requirements for product quality?</div>
+          <div class="faq-answer">
+            <p>All products must meet national agricultural standards and be properly certified. We require detailed product information, including ingredients, usage instructions, and safety data sheets. Products are subject to quality checks before approval for sale.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How are payments processed for suppliers?</div>
+          <div class="faq-answer">
+            <p>Payments to suppliers are processed bi-weekly through electronic transfers. We require verified bank account information during registration. For any payment inquiries, you can contact our supplier support team directly.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Financial Partners Category -->
+    <div class="faq-category" data-category="financial">
+      <div class="category-header">
+        <i class="bx bx-credit-card"></i>
+        <span>Financial Partners</span>
+      </div>
+      <div class="faq-items">
+        <div class="faq-item">
+          <div class="faq-question">How does the credit system work for farmers?</div>
+          <div class="faq-answer">
+            <p>Our credit system allows qualified farmers to purchase inputs now and pay after harvest. Farmers apply for credit based on their land size and previous farming history. Approval is typically processed within 48 hours, and repayment terms are flexible based on crop cycles.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What are the interest rates for farmer credit?</div>
+          <div class="faq-answer">
+            <p>Interest rates for our credit system range from 8-12% annually, depending on the farmer's credit history and the type of inputs purchased. First-time users may qualify for promotional rates. All rates are clearly disclosed before approval.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agents Category -->
+    <div class="faq-category" data-category="agents">
+      <div class="category-header">
+        <i class="bx bx-user-circle"></i>
+        <span>Agents</span>
+      </div>
+      <div class="faq-items">
+        <div class="faq-item">
+          <div class="faq-question">How do I become a Shamba Direct agent?</div>
+          <div class="faq-answer">
+            <p>To become an agent, you need to apply through our agent registration portal. We look for individuals with strong community connections and basic agricultural knowledge. Training is provided after selection. Agents earn commissions on sales and can access support materials.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What support do agents receive?</div>
+          <div class="faq-answer">
+            <p>Agents receive comprehensive training, marketing materials, and ongoing support from our team. We provide product knowledge resources, sales tools, and regular updates on new products. High-performing agents may qualify for additional incentives and recognition programs.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- General Category -->
+    <div class="faq-category" data-category="general">
+      <div class="category-header">
+        <i class="bx bx-info-circle"></i>
+        <span>General</span>
+      </div>
+      <div class="faq-items">
+        <div class="faq-item">
+          <div class="faq-question">What areas do you serve?</div>
+          <div class="faq-answer">
+            <p>We currently serve major agricultural regions in Tanzania, including Arusha, Kilimanjaro, Morogoro, Mbeya, and surrounding areas. We're continuously expanding our coverage. Check our service area map or contact us to confirm availability in your location.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How can I contact customer support?</div>
+          <div class="faq-answer">
+            <p>You can reach our customer support team through WhatsApp at +255 752 607 104, email at huduma@shambadirect.co.tz, or through our chatbot on the website. Our support hours are Monday to Saturday, 8:00 AM to 6:00 PM East Africa Time.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Do you have a mobile app?</div>
+          <div class="faq-answer">
+            <p>Yes, we have mobile apps available for both Android and iOS devices. You can download the Shamba Direct app from the Google Play Store or Apple App Store. The app allows you to browse products, place orders, track deliveries, and access our resources.</p>
+            <div class="feedback-container">
+              <span class="feedback-text">Was this helpful?</span>
+              <button class="feedback-btn" data-feedback="yes"><i class="bx bx-like"></i></button>
+              <button class="feedback-btn" data-feedback="no"><i class="bx bx-dislike"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chatbot CTA -->
+    <div class="chatbot-cta">
+      <h3>Still have questions?</h3>
+      <p>Our AI assistant can help you find answers instantly</p>
+      <button class="chatbot-btn" id="faqChatbotBtn">
+        <i class="bx bxs-bot"></i> Ask our Chatbot 🤖
+      </button>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact-section">
+      <h2>Didn't find your answer?</h2>
+      <p>Get in touch with our support team</p>
+      <div class="contact-options">
+        <a href="https://wa.me/+255750586178" target="_blank" class="contact-option">
+          <i class="bx bxl-whatsapp"></i>
+          <span>WhatsApp</span>
+        </a>
+        <a href="tel:+255700123456" class="contact-option">
+          <i class="bx bx-phone"></i>
+          <span>Call Us</span>
+        </a>
+        <a href="mailto:huduma@shambadirect.co.tz" class="contact-option">
+          <i class="bx bx-envelope"></i>
+          <span>Email</span>
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- Spacer content -->
-  <div class="content">Reliable Agricultural Solutions</div>
-
-  <!-- BACKEND: Render FAQ section/category dynamically here -->
-  <div class="parallax-section" id="section2"
-       style="background-image: url('../assets/images/IMG_3888.jpg');">
-    <div class="overlay-text">
-      <h1>Smart Input Ordering</h1>
-      <p>Order seeds, fertilizers & tools anytime</p>
-    </div>
-  </div>
-
-  <!-- Spacer content -->
-  <div class="content">We Serve Smallholder & Medium-scale Farmers</div>
-
-  <!-- BACKEND: Render FAQ section/category dynamically here -->
-  <div class="parallax-section" id="section3"
-       style="background-image: url('../assets/images/IMG_3935.jpg');">
-    <div class="overlay-text">
-      <h1>Instant Support</h1>
-      <p>Get real-time help and updates via WhatsApp & chatbot</p>
-    </div>
-  </div>
- 
-  <!-- Footer -->
   <footer class="footer-section">
     <div class="footer-container">
-      <div class="footer-col footer-col-brand">
-        <img src="../assets/images/Shamba direct logo.png" alt="Shamba Direct Logo" class="footer-logo" loading="lazy">
-        <p class="footer-tagline">Empowering Farmers. Connecting Inputs. Growing Together.</p>
-      </div>
 
-      <div class="footer-col footer-col-links">
-        <h4 class="footer-heading">Quick Links</h4>
-        <ul class="footer-links-list">
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="./about-us.html">About Us</a></li>
-          <li><a href="./service.html">Service</a></li>
-          <li><a href="./contact.html">Reach Us</a></li>
-          <li><a href="./faqs.html">FAQs</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-contact">
-        <h4 class="footer-heading">Contact & Support</h4>
-        <ul class="footer-contact-list">
-          <li>
-            <i class="fas fa-phone-alt footer-icon"></i>
-            <a href="tel:+255700123456">+255 752607104</a>
-          </li>
-          <li>
-            <i class="fas fa-envelope footer-icon"></i>
-            <a href="mailto:huduma@shambadirect.co.tz">huduma@shambadirect.co.tz</a>
-          </li>
-          <li>
-            <i class="fab fa-whatsapp footer-icon"></i>
-            <a href="https://wa.me/+255750586178" target="_blank">Chat with us</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-access">
-        <h4 class="footer-heading">Access Channels</h4>
-        <div class="access-channels-grid">
-          <div class="access-channel-item">
-            <i class="fas fa-globe footer-icon-large"></i>
-            <span>Mobile Application</span>
-          </div>
-          <div class="access-channel-item">
-            <i class="fab fa-whatsapp footer-icon-large"></i>
-            <span>WhatsApp Ordering</span>
-          </div>
-          <div class="access-channel-item">
-            <i class="fas fa-mobile-alt footer-icon-large"></i>
-            <span>USSD Access</span>
-          </div>
+        <div class="footer-col footer-col-brand">
+            <img src="../assets/images/Shamba direct logo.png" alt="Shamba Direct Logo" class="footer-logo" loading="lazy">
+            <p class="footer-tagline" data-lang-key="footer_tagline">Empowering Farmers. Connecting Inputs. Growing Together.</p>
         </div>
-      </div>
 
-      <div class="footer-col footer-col-social">
-        <h4 class="footer-heading">Follow Us</h4>
-        <div class="social-icons">
-          <a href="https://facebook.com/shambadirect" target="_blank" aria-label="Facebook">
-            <i class="fab fa-facebook-f social-icon"></i>
-          </a>
-          <a href="https://instagram.com/shambadirect" target="_blank" aria-label="Instagram">
-            <i class="fab fa-instagram social-icon"></i>
-          </a>
-          <a href="https://twitter.com/shambadirect" target="_blank" aria-label="Twitter">
-            <i class="fab fa-twitter social-icon"></i>
-          </a>
-          <a href="https://linkedin.com/company/shambadirect" target="_blank" aria-label="LinkedIn">
-            <i class="fab fa-linkedin-in social-icon"></i>
-          </a>
+        <div class="footer-col footer-col-links">
+            <h4 class="footer-heading" data-lang-key="footer_quick_links_heading">Quick Links</h4>
+            <ul class="footer-links-list">
+                <li><a href="../index.html" data-lang-key="footer_link_home">Home</a></li>
+                <li><a href="./about-us.html" data-lang-key="footer_link_about">About Us</a></li>
+                <li><a href="./service.html" data-lang-key="footer_link_service">Service</a></li>
+                <li><a href="./contact.html" data-lang-key="footer_link_reach_us">Reach Us</a></li>
+                <li><a href="./faqs.html" data-lang-key="footer_link_faqs">FAQs</a></li>
+            </ul>
         </div>
-      </div>
+
+        <div class="footer-col footer-col-contact">
+            <h4 class="footer-heading" data-lang-key="footer_contact_heading">Contact & Support</h4>
+            <ul class="footer-contact-list">
+                <li>
+                    <i class="fas fa-phone-alt footer-icon"></i>
+                    <a href="tel:+255700123456">+255 752607104</a>
+                </li>
+                <li>
+                    <i class="fas fa-envelope footer-icon"></i>
+                    <a href="mailto:huduma@shambadirect.co.tz">huduma@shambadirect.co.tz</a>
+                </li>
+                <li>
+                    <i class="fab fa-whatsapp footer-icon"></i>
+                    <a href="https://wa.me/+255750586178" target="_blank" data-lang-key="footer_chat_whatsapp">Chat with us</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer-col footer-col-access">
+            <h4 class="footer-heading" data-lang-key="footer_access_heading">Access Channels</h4>
+            <div class="access-channels-grid">
+                <div class="access-channel-item">
+                    <i class="fas fa-globe footer-icon-large"></i>
+                    <span data-lang-key="access_channel1">Mobile App</span>
+                </div>
+                <div class="access-channel-item">
+                    <i class="fab fa-whatsapp footer-icon-large"></i>
+                    <span data-lang-key="access_channel2">WhatsApp Ordering</span>
+                </div>
+                <div class="access-channel-item">
+                    <i class="fas fa-mobile-alt footer-icon-large"></i>
+                    <span data-lang-key="access_channel3">USSD Access</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-col footer-col-social">
+            <h4 class="footer-heading" data-lang-key="footer_follow_us_heading">Follow Us</h4>
+            <div class="social-icons">
+                <a href="https://facebook.com/shambadirect" target="_blank" aria-label="Facebook">
+                    <i class="fab fa-facebook-f social-icon"></i>
+                </a>
+                <a href="https://www.instagram.com/shambadirecttz/" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram social-icon"></i>
+                </a>
+                <a href="https://twitter.com/shambadirect" target="_blank" aria-label="Twitter">
+                    <i class="fab fa-twitter social-icon"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/shamba-direct-36ab75362/" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in social-icon"></i>
+                </a>
+            </div>
+        </div>
+
     </div>
 
     <div class="footer-bottom-bar">
-      <p class="footer-copyright">&copy; 2025 Shamba Direct. All rights reserved.</p>
-      <div class="footer-legal-links">
-        <a href="#terms">Terms of Service</a>
-        <span class="separator">|</span>
-        <a href="#privacy">Privacy Policy</a>
-      </div>
+        <p class="footer-copyright" data-lang-key="footer_copyright">2025 Shamba Direct</p>
+        <div class="footer-legal-links">
+            <a href="#terms" data-lang-key="footer_terms">Terms of Service</a>
+            <span class="separator">|</span>
+            <a href="#privacy" data-lang-key="footer_privacy">Privacy Policy</a>
+        </div>
     </div>
-  </footer>
- 
+</footer>
+
+  <div class="chatbot-container">
+    <button class="chatbot-toggle"><i class="bxr bx-help-circle bx-beat"></i> </button>
+    <div class="chatbot-window">
+        <div class="chatbot-header" data-lang-key="chatbot_header">Shamba Bot <span class="close-chat">✖</span></div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div id="typingIndicator" class="bot-msg hidden">...</div>
+        </div>
+        <form id="chatForm" action="/api/chatbot" method="POST">
+            <input type="text" id="chatInput" name="message" data-lang-placeholder="chatbot_input_placeholder" placeholder="Andika ujumbe wako..." required />
+            <button type="submit" data-lang-key="chatbot_send_button">Tuma</button>
+        </form>
+        <div class="chatbot-footer">
+            <span class="chatbot-footer-text" data-lang-key="chatbot_powered_by">Powered by Shamba Direct</span>
+        </div>
+    </div>
+</div>
+
   <!-- jQuery Script -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="../js/theme.js?v=1.0"></script>
   <script src="../js/nav.js?v=1.0"></script>
+  <script src="../js/chatbot.js?v=1.0"></script>
   <script>
-    $(window).on("scroll", function () {
-      let scrollTop = $(window).scrollTop();
-      $(".parallax-section").each(function () {
-        let offset = $(this).offset().top;
-        let distance = scrollTop - offset;
-        $(this).css("background-position", "center " + (distance * 0.4) + "px");
+    // FAQ Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Accordion functionality
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+          this.classList.toggle('active');
+          const answer = this.nextElementSibling;
+          if (answer.classList.contains('show')) {
+            answer.classList.remove('show');
+          } else {
+            answer.classList.add('show');
+          }
+        });
+      });
+
+      // Category collapse/expand
+      const categoryHeaders = document.querySelectorAll('.category-header');
+      categoryHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+          this.classList.toggle('collapsed');
+          const faqItems = this.nextElementSibling;
+          if (faqItems.style.display === 'none') {
+            faqItems.style.display = 'block';
+          } else {
+            faqItems.style.display = 'none';
+          }
+        });
+      });
+
+      // Category filtering
+      const categoryButtons = document.querySelectorAll('.category-btn');
+      const faqCategories = document.querySelectorAll('.faq-category');
+      
+      categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Update active button
+          categoryButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          const category = this.getAttribute('data-category');
+          
+          // Show/hide categories
+          faqCategories.forEach(categoryDiv => {
+            if (category === 'all' || categoryDiv.getAttribute('data-category') === category) {
+              categoryDiv.style.display = 'block';
+            } else {
+              categoryDiv.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Search functionality
+      const searchInput = document.getElementById('faqSearch');
+      searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        // Reset category filter to show all
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        document.querySelector('.category-btn[data-category="all"]').classList.add('active');
+        faqCategories.forEach(category => category.style.display = 'block');
+        
+        let hasResults = false;
+        
+        // Search through all FAQ items
+        document.querySelectorAll('.faq-item').forEach(item => {
+          const question = item.querySelector('.faq-question').textContent.toLowerCase();
+          const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+          
+          if (searchTerm === '' || question.includes(searchTerm) || answer.includes(searchTerm)) {
+            item.style.display = 'block';
+            hasResults = true;
+            
+            // Highlight search terms
+            if (searchTerm !== '') {
+              highlightText(item, searchTerm);
+            }
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        
+        // Show no results message if needed
+        const noResults = document.querySelector('.no-results');
+        if (noResults) {
+          noResults.remove();
+        }
+        
+        if (!hasResults && searchTerm !== '') {
+          const noResultsDiv = document.createElement('div');
+          noResultsDiv.className = 'no-results';
+          noResultsDiv.innerHTML = `
+            <i class="bx bx-search"></i>
+            <h3>No results found</h3>
+            <p>Try different keywords or ask our chatbot for help</p>
+            <button class="chatbot-btn" id="noResultsChatbotBtn">
+              <i class="bx bxs-bot"></i> Ask our Chatbot 🤖
+            </button>
+          `;
+          document.querySelector('.faqs-container').appendChild(noResultsDiv);
+          
+          // Add event listener to the new chatbot button
+          document.getElementById('noResultsChatbotBtn').addEventListener('click', function() {
+            // Open chatbot with search term as context
+            document.querySelector('.chatbot-toggle').click();
+            document.getElementById('chatInput').value = searchTerm;
+          });
+        }
+      });
+
+      // Function to highlight search terms
+      function highlightText(element, term) {
+        const regex = new RegExp(`(${term})`, 'gi');
+        
+        // Process question
+        const question = element.querySelector('.faq-question');
+        question.innerHTML = question.textContent.replace(regex, '<span class="highlight">$1</span>');
+        
+        // Process answer
+        const answer = element.querySelector('.faq-answer');
+        answer.innerHTML = answer.textContent.replace(regex, '<span class="highlight">$1</span>');
+      }
+
+      // Feedback system
+      const feedbackButtons = document.querySelectorAll('.feedback-btn');
+      feedbackButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const feedback = this.getAttribute('data-feedback');
+          const container = this.closest('.feedback-container');
+          
+          // Update button states
+          container.querySelectorAll('.feedback-btn').forEach(btn => {
+            btn.classList.remove('active');
+          });
+          this.classList.add('active');
+          
+          // In a real implementation, you would send this feedback to your server
+          console.log(`FAQ feedback: ${feedback}`);
+          
+          // Show confirmation
+          const confirmation = document.createElement('div');
+          confirmation.textContent = feedback === 'yes' ? 'Thank you for your positive feedback!' : 'Thank you for your feedback. We\'ll work to improve.';
+          confirmation.style.color = '#4CAF50';
+          confirmation.style.fontSize = '0.9rem';
+          confirmation.style.marginTop = '10px';
+          
+          // Remove existing confirmation if any
+          const existingConfirmation = container.querySelector('.feedback-confirmation');
+          if (existingConfirmation) {
+            existingConfirmation.remove();
+          }
+          
+          confirmation.className = 'feedback-confirmation';
+          container.appendChild(confirmation);
+          
+          // Remove confirmation after 3 seconds
+          setTimeout(() => {
+            if (confirmation.parentNode) {
+              confirmation.remove();
+            }
+          }, 3000);
+        });
+      });
+
+      // Chatbot CTA button
+      document.getElementById('faqChatbotBtn').addEventListener('click', function() {
+        document.querySelector('.chatbot-toggle').click();
+      });
+
+      // Initialize all categories as expanded
+      document.querySelectorAll('.faq-items').forEach(items => {
+        items.style.display = 'block';
       });
     });
   </script>

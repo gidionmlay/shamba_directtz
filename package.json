@@ -1,0 +1,26 @@
+{
+  "name": "shamba-direct",
+  "version": "1.0.0",
+  "description": "This project implements a full backend integration for user registration with admin approval workflow for Shamba Direct.",
+  "main": "test-login.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gidionmlay/shamba_directtz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gidionmlay/shamba_directtz/issues"
+  },
+  "homepage": "https://github.com/gidionmlay/shamba_directtz#readme",
+  "devDependencies": {
+    "vite": "^7.1.3"
+  }
+}

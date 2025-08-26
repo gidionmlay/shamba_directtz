@@ -139,6 +139,19 @@
     transform: translateY(-1px); /* Slight lift on hover */
 }
 
+.admin-btn {
+    background-color: var(--primary-blue); /* Blue background for admin */
+    color: #FFFFFF; /* White text for admin */
+    border: 1px solid var(--primary-blue); /* Blue border */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.admin-btn:hover {
+    background-color: var(--primary-blue-dark); /* Darker blue on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px); /* Slight lift on hover */
+}
+
 /* Hide mobile menu elements by default on larger screens */
 .menu-toggle,
 .mobile-menu-overlay,
@@ -260,6 +273,26 @@
     padding: 12px 20px;
     text-align: center;
     border: none; /* Remove bottom border for buttons */
+}
+
+/* Mobile Auth Section Styles */
+.mobile-auth-section a {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.mobile-auth-section .admin-btn {
+    background-color: var(--primary-blue); /* Blue background for admin */
+    color: #FFFFFF; /* White text for admin */
+    border: 1px solid var(--primary-blue); /* Blue border */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-auth-section .admin-btn:hover {
+    background-color: var(--primary-blue-dark); /* Darker blue on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px); /* Slight lift on hover */
 }
 
 

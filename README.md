@@ -1,75 +1,112 @@
-# Shamba Direct Frontend Project
+# Shamba Direct - Enhanced User Registration and Approval System
 
-## 1. Project Overview
-Shamba Direct is a digital AgriTech platform empowering smallholder and medium-scale farmers across Tanzania. The frontend provides a seamless marketplace for agricultural products and resources, connecting farmers, suppliers, and buyers. This repository contains all static assets (HTML, CSS, JS, images) required for the user interface, and is now fully prepared for backend integration.
+This project implements a full backend integration for user registration with admin approval workflow for Shamba Direct.
 
-## 2. Folder Structure
-```
-public/
-├── index.html                  # Main landing page
-├── pages/                      # All sub-pages (login, registration, service, etc.)
-│   ├── about-us.html
-│   ├── contact.html
-│   ├── faqs.html
-│   ├── farmer-registration.html
-│   ├── login.html
-│   ├── payment.html
-│   ├── registration-role-section.html
-│   ├── service.html
-│   └── supplier-registration.html
-├── css/                        # Stylesheets for all pages/components
-├── js/                         # JavaScript files for interactivity and API calls
-├── assets/                     # Images, videos, and other static assets
-│   └── images/
-└── README.md                   # This file
-```
+## Features Implemented
 
-## 3. Expected Backend API Endpoints
-The frontend is designed to interact with the following RESTful API endpoints:
+### 1. User Registration
+- **Farmer Registration**: Collects farmer-specific information including farm size, crops grown, etc.
+- **Supplier Registration**: Collects supplier-specific information including business details, product types, etc.
+- Both registration forms submit data to the backend with a "PENDING" status by default.
 
-| Route                      | Method | Description                                      |
-|----------------------------|--------|--------------------------------------------------|
-| `/api/login`               | POST   | Authenticates a user and returns a token/session. |
-| `/api/register/farmer`     | POST   | Registers a new farmer user.                     |
-| `/api/register/supplier`   | POST   | Registers a new supplier user.                   |
-| `/api/contact`             | POST   | Submits a contact form message.                  |
-| `/api/checkout`            | POST   | Processes a payment and finalizes the order.     |
-| `/api/products`            | GET    | Returns a list of products/services.             |
-| `/api/chatbot`             | POST   | Handles chatbot message submission and response.  |
+### 2. Admin Dashboard
+- **User Management**: Admins can view all users and filter by role and status (Pending, Approved, Rejected).
+- **Approval Workflow**: Admins can approve or reject pending registrations with an optional reason.
+- **Role Management**: Admins can change user roles (USER, ADMIN, FARMER, SUPPLIER).
 
-Other endpoints may be required for dynamic select options (e.g., `/api/regions`, `/api/districts`).
+### 3. User Login
+- **Status Validation**: Users with "PENDING" status are blocked from logging in with a message to wait for approval.
+- **Rejection Handling**: Users with "REJECTED" status are blocked from logging in with a message to contact support.
+- **First Login Experience**: Approved users see a welcome message on their first login after approval.
 
-## 4. Integration Guide for Backend Developers
-To integrate your backend with this frontend, follow these guidelines:
+### 4. Dashboards
+- **Farmer Dashboard**: Personalized dashboard for farmers with farm management features.
+- **Supplier Dashboard**: Personalized dashboard for suppliers with product and order management features.
+- **Admin Dashboard**: Enhanced user management with approval workflow.
 
-1. **Form Actions & Methods**
-   - All forms have `action` and `method` attributes set to the expected backend endpoint and HTTP method (GET/POST).
-   - Input fields have clear `name` attributes for backend parsing.
+## API Endpoints
 
-2. **Dynamic Content Injection**
-   - HTML files include comments like `<!-- BACKEND: Render product list dynamically here -->` to indicate where backend-rendered content should be injected (e.g., user info, product lists, order summaries, select options).
+### Registration
+- `POST /api/register/farmer` - Register a new farmer
+- `POST /api/register/supplier` - Register a new supplier
 
-3. **JavaScript API Calls**
-   - Key JS files (e.g., `login.js`, `payment.js`, `chatbot.js`, `app.js`) include placeholder `fetch()` calls to backend endpoints, with comments and basic error handling.
-   - These demonstrate the expected request/response formats and how to handle errors.
+### Authentication
+- `POST /api/login` - Authenticate user with status validation
 
-4. **File Uploads**
-   - Registration forms (e.g., supplier/farmer) include file upload fields. The backend should handle `multipart/form-data` for these endpoints.
-   - Uploaded files use clear `name` attributes (e.g., `regCertificateUpload`, `idUpload`).
+### Admin Functions
+- `GET /api/admin/users` - List users with filtering by role and status
+- `PATCH /api/admin/users/:id/approve` - Approve a pending user
+- `PATCH /api/admin/users/:id/reject` - Reject a pending user
 
-5. **Expected Data Formats**
-   - Most API endpoints expect and return JSON. For file uploads, use `multipart/form-data`.
-   - Example login request: `{ emailPhone, password, role }`
-   - Example chatbot request: `{ message }` → `{ reply }`
-   - Example product list response: `[ { id, name, price, ... }, ... ]`
+## Database Schema Changes
 
-6. **Error Handling**
-   - JS fetch() calls include basic error handling and display user-friendly messages on failure.
-   - Backend should return clear error messages and appropriate HTTP status codes.
+### New Fields
+- `status` (ENUM: PENDING, APPROVED, REJECTED) - Tracks user approval status
+- `firstLogin` (BOOLEAN) - Tracks if it's the user's first login after approval
+- `farmSize` (DOUBLE PRECISION) - Farm size for farmers
+- `companyName` (TEXT) - Company name for suppliers
+- `businessRegNo` (TEXT) - Business registration number for suppliers
+- `location` (TEXT) - Location information for both farmers and suppliers
 
-7. **Extending Functionality**push
-   - To add new dynamic sections, use the same pattern: add a backend comment in HTML and a fetch() call in JS.
+### New Roles
+- `FARMER` - For farmer users
+- `SUPPLIER` - For supplier users
 
----
+## Frontend Changes
 
-For any questions or integration issues, please refer to the backend comments in the HTML files and the fetch() usage in the JS files for guidance on expected data and endpoints.
+### Registration Forms
+- Updated farmer and supplier registration forms to submit to new API endpoints
+- Added success page redirection after registration
+
+### Login Form
+- Updated login form to handle new status validation and first login experience
+
+### Dashboards
+- Created farmer dashboard with farm management features
+- Created supplier dashboard with product and order management features
+- Updated admin dashboard with approval workflow
+
+## Setup Instructions
+
+1. Update the database schema with the new migration file
+2. Install dependencies: `npm install` in the server directory
+3. Start the server: `npm start` or `npm run dev` in the server directory
+
+## Usage
+
+1. Users register as either farmers or suppliers through the respective registration forms
+2. Admins review pending registrations in the admin dashboard
+3. Admins approve or reject registrations
+4. Approved users can log in and see their personalized dashboard
+5. First-time logins after approval see a welcome message
+
+## Testing the Login Functionality
+
+To test the login functionality, you can use the test-login.html file which provides a simple interface to test different login scenarios:
+
+1. Open test-login.html in your browser
+2. Enter valid credentials for a user in the system
+3. Select the appropriate role (farmer, supplier, or admin)
+4. Click "Test Login" to verify the login flow
+
+The test page will show success or error messages based on the login attempt and will redirect to the appropriate dashboard upon successful authentication.
+
+## Login Flow
+
+The login flow works as follows:
+
+1. User selects their role (farmer, supplier, or admin) using the tab interface
+2. User enters their email/phone and password
+3. Upon submission, the credentials are validated against the backend API
+4. The system checks the user's status:
+   - If PENDING: User is blocked with a message to wait for admin approval
+   - If REJECTED: User is blocked with a message to contact support
+   - If APPROVED: User is authenticated and redirected to their dashboard
+5. First-time logins after approval show a welcome message
+
+## Role-Based Redirection
+
+After successful authentication, users are redirected to their respective dashboards:
+- Farmers: farmer-dashboard.html
+- Suppliers: supplier-dashboard.html
+- Admins: pages/admin/dashboard.html

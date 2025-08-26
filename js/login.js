@@ -1,4 +1,4 @@
-export function initLoginForm() {
+function initLoginForm() {
     const tabButtons = document.querySelectorAll('.tab-button');
     const loginForm = document.getElementById('loginForm');
     const registerText = document.getElementById('registerText');
@@ -15,11 +15,11 @@ export function initLoginForm() {
         switch (currentRole) {
             case 'farmer':
                 text += 'Farmer.';
-                link = '/register/farmer'; // Example route
+                link = './farmer-registration.html'; // Actual route
                 break;
             case 'supplier':
                 text += 'Supplier.';
-                link = '/register/supplier'; // Example route
+                link = './supplier-registration.html'; // Actual route
                 break;
             case 'admin':
                 text += 'Admin (Contact Support).';
@@ -27,11 +27,14 @@ export function initLoginForm() {
                 break;
         }
         registerText.textContent = text;
-        registerNowBtn.onclick = () => {
-            // For simplicity, we'll just log the redirect in this demo
-            console.log(`Redirecting to: ${link}`);
-            // In a real application: window.location.href = link;
-            alert(`Simulating redirection to: ${link}`);
+        registerNowBtn.onclick = (e) => {
+            e.preventDefault();
+            // Redirect to the appropriate registration page
+            if (link.startsWith('mailto:')) {
+                window.location.href = link;
+            } else {
+                window.location.href = link;
+            }
         };
     };
 
@@ -74,9 +77,7 @@ export function initLoginForm() {
         loginButton.textContent = 'Logging in...';
         loginButton.disabled = true;
 
-        // BACKEND: Submit login credentials to /api/login
-        // Expected request: { emailPhone, password, role }
-        // Expected response: { success: boolean, message: string, redirectUrl?: string }
+        // Submit login credentials to /api/login
         fetch('/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -84,11 +85,41 @@ export function initLoginForm() {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.success) {
-                alert(`Login successful as ${currentRole}! Redirecting to dashboard.`);
-                // window.location.href = data.redirectUrl || `/${currentRole}-dashboard`;
+            if (data.code === 'LOGIN_SUCCESS') {
+                // Store token in localStorage
+                localStorage.setItem('token', data.token);
+                
+                // Check if it's the user's first login
+                if (data.user.isFirstLogin) {
+                    // Show welcome message
+                    alert('Thank you for becoming part of the Shamba Direct family! We\'re excited to help you grow with us. Welcome to your dashboard.');
+                }
+                
+                // Redirect to appropriate dashboard based on role
+                if (currentRole === 'admin') {
+                    window.location.href = '../pages/admin/dashboard.html';
+                } else {
+                    // For farmers and suppliers, redirect to their respective dashboards
+                    window.location.href = `./${currentRole}-dashboard.html`;
+                }
             } else {
-                alert('Login failed: ' + (data.message || 'Invalid credentials or role not recognized.'));
+                // Handle different error cases
+                switch (data.code) {
+                    case 'ACCOUNT_PENDING':
+                        alert('Your account is under review. Please wait for admin approval.');
+                        break;
+                    case 'ACCOUNT_REJECTED':
+                        alert('Your registration request was declined. Contact support for assistance.');
+                        break;
+                    case 'INVALID_CREDENTIALS':
+                        alert('Invalid email/phone or password.');
+                        break;
+                    case 'INVALID_ROLE':
+                        alert('User role does not match provided role.');
+                        break;
+                    default:
+                        alert('Login failed: ' + (data.message || 'Invalid credentials or role not recognized.'));
+                }
             }
         })
         .catch(error => {

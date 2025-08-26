@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String      @id @default(uuid())
+  name            String
+  email           String      @unique
+  phone           String?     @unique
+  passwordHash    String
+  role            Role        @default(USER)
+  status          UserStatus  @default(PENDING)
+  firstLogin      Boolean     @default(true)
+  farmSize        Float?      // For farmers
+  companyName     String?     // For suppliers
+  businessRegNo   String?     // For suppliers
+  location        String?     // For both farmers and suppliers
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  orders          Order[]
+  adminEvents     AdminEvent[]
+  products        Product[]
+}
+
+enum Role {
+  USER
+  ADMIN
+  FARMER
+  SUPPLIER
+}
+
+enum UserStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  productName String
+  quantity    String
+  status      OrderStatus @default(PENDING)
+  notes       String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  DELIVERED
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  unit        String
+  price       Float?
+  active      Boolean  @default(true)
+  supplierId  String?
+  supplier    User?     @relation(fields: [supplierId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model AdminEvent {
+  id         String    @id @default(uuid())
+  adminId    String
+  admin      User      @relation(fields: [adminId], references: [id])
+  entityType String
+  entityId   String
+  action     String
+  from       String?
+  to         String?
+  meta       String?
+  createdAt  DateTime  @default(now())
+}

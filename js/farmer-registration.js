@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 loadingSpinner.style.display = 'inline-block';
                 submitBtn.disabled = true; // Disable button to prevent multiple submissions
 
-                // Simulate form submission (e.g., sending data to a server)
+                // Prepare form data
                 const formData = new FormData(form);
                 const data = {};
                 for (const [key, value] of formData.entries()) {
@@ -165,16 +165,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
 
-                console.log('Form Data (excluding file for now):', data);
-
                 try {
-                    // Replace with actual API call (e.g., fetch('/api/register-farmer', { method: 'POST', body: formData }))
-                    await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate network request
+                    // Make API call to register farmer
+                    const response = await fetch('/api/register/farmer', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
 
-                    alert('Farmer Registered Successfully!');
-                    form.reset(); // Clear the form
-                    showStep(1); // Go back to the first step
-                    fileNameSpan.textContent = 'No file chosen'; // Reset file name
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        alert('Farmer registration submitted successfully! Your account is pending admin approval.');
+                        // Redirect to success page
+                        window.location.href = './success.html';
+                    } else {
+                        alert(`Registration failed: ${result.message || 'An unexpected error occurred.'}`);
+                    }
                 } catch (error) {
                     console.error('Registration failed:', error);
                     alert('Registration failed. Please try again.');

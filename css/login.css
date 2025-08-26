@@ -152,6 +152,7 @@ body {
 .tab-button:hover:not(.active) {
     color: var(--primary-green-dark);
     border-color: rgba(103, 183, 73, 0.3);
+    text-decoration: underline;
 }
 
 .tab-button.active {
@@ -270,7 +271,7 @@ body {
 }
 
 .register-button:hover {
-    background-color: var(--accent-light-gray-hover);
+    background-color: #c0c0c0; /* Fallback color */
     transform: translateY(-2px);
 }
 

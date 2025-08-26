@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Admin Dashboard | Shamba Direct</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/admin-dashboard.css?v=1.0">
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-section">
+                <img src="../../assets/images/Shamba direct logo.png" alt="Shamba Direct Logo" class="logo-img">
+                <h2>Admin Panel</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="./dashboard.html">
+                            <i class="ri-dashboard-line"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./orders.html" class="active">
+                            <i class="ri-shopping-cart-line"></i>
+                            <span>Orders</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./users.html">
+                            <i class="ri-group-line"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./products.html">
+                            <i class="ri-box-3-line"></i>
+                            <span>Products</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./settings.html">
+                            <i class="ri-settings-line"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../../index.html">
+                    <i class="ri-logout-box-line"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="ri-menu-line"></i>
+                    </button>
+                    <h1>Orders</h1>
+                </div>
+                <div class="header-right">
+                    <div class="notification-icon">
+                        <i class="ri-notification-3-line"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="../../assets/images/issa hasan.jpg" alt="Admin User" class="user-avatar">
+                        <span class="user-name">Admin User</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Orders Content -->
+            <div class="dashboard-content">
+                <!-- Filters -->
+                <section class="filters-section">
+                    <div class="filters-container">
+                        <div class="filter-group">
+                            <label for="statusFilter">Status</label>
+                            <select id="statusFilter">
+                                <option value="">All Statuses</option>
+                                <option value="PENDING">Pending</option>
+                                <option value="CONFIRMED">Confirmed</option>
+                                <option value="DELIVERED">Delivered</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="dateFilter">Date Range</label>
+                            <input type="date" id="startDateFilter">
+                            <input type="date" id="endDateFilter">
+                        </div>
+                        <div class="filter-group">
+                            <label for="searchFilter">Search</label>
+                            <input type="text" id="searchFilter" placeholder="Search orders...">
+                        </div>
+                        <div class="filter-group">
+                            <button class="action-btn" id="applyFilters">Apply Filters</button>
+                            <button class="action-btn" id="resetFilters">Reset</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Orders Table -->
+                <section class="orders-section">
+                    <div class="section-header">
+                        <h2>All Orders</h2>
+                        <div class="section-actions">
+                            <button class="action-btn" id="exportOrders">
+                                <i class="ri-download-line"></i>
+                                <span>Export</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>User</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#ORD-001</td>
+                                    <td>John Doe</td>
+                                    <td>Maize Seeds</td>
+                                    <td>50kg</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>2025-08-20</td>
+                                    <td>
+                                        <button class="action-btn update-status">Update</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-002</td>
+                                    <td>Jane Smith</td>
+                                    <td>Fertilizer</td>
+                                    <td>20 bags</td>
+                                    <td><span class="status-badge confirmed">Confirmed</span></td>
+                                    <td>2025-08-19</td>
+                                    <td>
+                                        <button class="action-btn update-status">Update</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-003</td>
+                                    <td>Robert Johnson</td>
+                                    <td>Water Pump</td>
+                                    <td>1 unit</td>
+                                    <td><span class="status-badge delivered">Delivered</span></td>
+                                    <td>2025-08-18</td>
+                                    <td>
+                                        <button class="action-btn update-status">Update</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-004</td>
+                                    <td>Mary Wilson</td>
+                                    <td>Pesticide</td>
+                                    <td>10 liters</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>2025-08-18</td>
+                                    <td>
+                                        <button class="action-btn update-status">Update</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-005</td>
+                                    <td>David Brown</td>
+                                    <td>Maize Seeds</td>
+                                    <td>100kg</td>
+                                    <td><span class="status-badge confirmed">Confirmed</span></td>
+                                    <td>2025-08-17</td>
+                                    <td>
+                                        <button class="action-btn update-status">Update</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-006</td>
+                                    <td>Sarah Davis</td>
+                                    <td>Fertilizer</td>
+                                    <td>15 bags</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>2025-08-16</td>
+                                    <td>
+                                        <button class="action-btn update-status">Update</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-007</td>
+                                    <td>Michael Wilson</td>
+                                    <td>Water Pump</td>
+                                    <td>2 units</td>
+                                    <td><span class="status-badge delivered">Delivered</span></td>
+                                    <td>2025-08-15</td>
+                                    <td>
+                                        <button class="action-btn update-status">Update</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-008</td>
+                                    <td>Emily Johnson</td>
+                                    <td>Pesticide</td>
+                                    <td>5 liters</td>
+                                    <td><span class="status-badge confirmed">Confirmed</span></td>
+                                    <td>2025-08-14</td>
+                                    <td>
+                                        <button class="action-btn update-status">Update</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-009</td>
+                                    <td>James Smith</td>
+                                    <td>Maize Seeds</td>
+                                    <td>75kg</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>2025-08-13</td>
+                                    <td>
+                                        <button class="action-btn update-status">Update</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-010</td>
+                                    <td>Lisa Brown</td>
+                                    <td>Fertilizer</td>
+                                    <td>25 bags</td>
+                                    <td><span class="status-badge delivered">Delivered</span></td>
+                                    <td>2025-08-12</td>
+                                    <td>
+                                        <button class="action-btn update-status">Update</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="pagination-container">
+                        <div class="pagination-info">
+                            Showing 1 to 10 of 42 entries
+                        </div>
+                        <div class="pagination-controls">
+                            <button class="action-btn" disabled>
+                                <i class="ri-arrow-left-s-line"></i>
+                                <span>Previous</span>
+                            </button>
+                            <button class="action-btn active">1</button>
+                            <button class="action-btn">2</button>
+                            <button class="action-btn">3</button>
+                            <button class="action-btn">
+                                <span>Next</span>
+                                <i class="ri-arrow-right-s-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/admin-auth.js?v=1.0"></script>
+    <script src="../../js/admin-orders.js?v=1.0"></script>
+</body>
+</html>
