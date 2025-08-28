@@ -1,36 +1,31 @@
-// We'll inject the prisma client when initializing the controller
-let prismaInstance = null;
-
-const setPrismaInstance = (prisma) => {
-  prismaInstance = prisma;
-};
+const Product = require('../models/Product');
+const User = require('../models/User');
 
 // Get all products
 const getAllProducts = async (req, res) => {
   try {
-    const products = await prismaInstance.product.findMany({
-      where: {
-        active: true
-      },
-      include: {
-        supplier: {
-          select: {
-            id: true,
-            name: true,
-            companyName: true,
-            email: true,
-            phone: true
-          }
-        }
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
-    });
+    const products = await Product.find({ active: true })
+      .populate('supplier', 'id name companyName email phone')
+      .sort({ createdAt: -1 });
     
     res.json({
       code: 'SUCCESS',
-      products
+      products: products.map(product => ({
+        id: product.id,
+        name: product.name,
+        unit: product.unit,
+        price: product.price,
+        active: product.active,
+        supplier: product.supplier ? {
+          id: product.supplier.id,
+          name: product.supplier.name,
+          companyName: product.supplier.companyName,
+          email: product.supplier.email,
+          phone: product.supplier.phone
+        } : null,
+        createdAt: product.createdAt,
+        updatedAt: product.updatedAt
+      }))
     });
   } catch (error) {
     console.error('Get products error:', error);
@@ -46,20 +41,8 @@ const getProductById = async (req, res) => {
   try {
     const { id } = req.params;
     
-    const product = await prismaInstance.product.findUnique({
-      where: { id },
-      include: {
-        supplier: {
-          select: {
-            id: true,
-            name: true,
-            companyName: true,
-            email: true,
-            phone: true
-          }
-        }
-      }
-    });
+    const product = await Product.findById(id)
+      .populate('supplier', 'id name companyName email phone');
     
     if (!product) {
       return res.status(404).json({
@@ -70,7 +53,22 @@ const getProductById = async (req, res) => {
     
     res.json({
       code: 'SUCCESS',
-      product
+      product: {
+        id: product.id,
+        name: product.name,
+        unit: product.unit,
+        price: product.price,
+        active: product.active,
+        supplier: product.supplier ? {
+          id: product.supplier.id,
+          name: product.supplier.name,
+          companyName: product.supplier.companyName,
+          email: product.supplier.email,
+          phone: product.supplier.phone
+        } : null,
+        createdAt: product.createdAt,
+        updatedAt: product.updatedAt
+      }
     });
   } catch (error) {
     console.error('Get product error:', error);
@@ -89,11 +87,9 @@ const createProduct = async (req, res) => {
     // Check if supplier exists and is a supplier
     let supplier = null;
     if (supplierId) {
-      supplier = await prismaInstance.user.findUnique({
-        where: {
-          id: supplierId,
-          role: 'SUPPLIER'
-        }
+      supplier = await User.findOne({
+        _id: supplierId,
+        role: 'SUPPLIER'
       });
       
       if (!supplier) {
@@ -104,30 +100,39 @@ const createProduct = async (req, res) => {
       }
     }
     
-    const product = await prismaInstance.product.create({
-      data: {
-        name,
-        unit,
-        price: parseFloat(price) || null,
-        supplierId: supplierId || null
-      },
-      include: {
-        supplier: {
-          select: {
-            id: true,
-            name: true,
-            companyName: true,
-            email: true,
-            phone: true
-          }
-        }
-      }
+    const product = new Product({
+      name,
+      unit,
+      price: parseFloat(price) || null,
+      supplier: supplierId || null
     });
+    
+    await product.save();
+    
+    // Populate supplier details
+    if (supplierId) {
+      await product.populate('supplier', 'id name companyName email phone');
+    }
     
     res.status(201).json({
       code: 'PRODUCT_CREATED',
       message: 'Product created successfully.',
-      product
+      product: {
+        id: product.id,
+        name: product.name,
+        unit: product.unit,
+        price: product.price,
+        active: product.active,
+        supplier: product.supplier ? {
+          id: product.supplier.id,
+          name: product.supplier.name,
+          companyName: product.supplier.companyName,
+          email: product.supplier.email,
+          phone: product.supplier.phone
+        } : null,
+        createdAt: product.createdAt,
+        updatedAt: product.updatedAt
+      }
     });
   } catch (error) {
     console.error('Create product error:', error);
@@ -145,9 +150,7 @@ const updateProduct = async (req, res) => {
     const { name, unit, price, active, supplierId } = req.body;
     
     // Check if product exists
-    const existingProduct = await prismaInstance.product.findUnique({
-      where: { id }
-    });
+    const existingProduct = await Product.findById(id);
     
     if (!existingProduct) {
       return res.status(404).json({
@@ -159,11 +162,9 @@ const updateProduct = async (req, res) => {
     // Check if supplier exists and is a supplier
     let supplier = null;
     if (supplierId) {
-      supplier = await prismaInstance.user.findUnique({
-        where: {
-          id: supplierId,
-          role: 'SUPPLIER'
-        }
+      supplier = await User.findOne({
+        _id: supplierId,
+        role: 'SUPPLIER'
       });
       
       if (!supplier) {
@@ -174,32 +175,43 @@ const updateProduct = async (req, res) => {
       }
     }
     
-    const product = await prismaInstance.product.update({
-      where: { id },
-      data: {
+    // Update product
+    const product = await Product.findByIdAndUpdate(
+      id,
+      {
         name,
         unit,
         price: price ? parseFloat(price) : undefined,
         active,
-        supplierId: supplierId || null
+        supplier: supplierId || null
       },
-      include: {
-        supplier: {
-          select: {
-            id: true,
-            name: true,
-            companyName: true,
-            email: true,
-            phone: true
-          }
-        }
-      }
-    });
+      { new: true }
+    );
+    
+    // Populate supplier details
+    if (supplierId) {
+      await product.populate('supplier', 'id name companyName email phone');
+    }
     
     res.json({
       code: 'PRODUCT_UPDATED',
       message: 'Product updated successfully.',
-      product
+      product: {
+        id: product.id,
+        name: product.name,
+        unit: product.unit,
+        price: product.price,
+        active: product.active,
+        supplier: product.supplier ? {
+          id: product.supplier.id,
+          name: product.supplier.name,
+          companyName: product.supplier.companyName,
+          email: product.supplier.email,
+          phone: product.supplier.phone
+        } : null,
+        createdAt: product.createdAt,
+        updatedAt: product.updatedAt
+      }
     });
   } catch (error) {
     console.error('Update product error:', error);
@@ -216,9 +228,7 @@ const deleteProduct = async (req, res) => {
     const { id } = req.params;
     
     // Check if product exists
-    const existingProduct = await prismaInstance.product.findUnique({
-      where: { id }
-    });
+    const existingProduct = await Product.findById(id);
     
     if (!existingProduct) {
       return res.status(404).json({
@@ -228,17 +238,31 @@ const deleteProduct = async (req, res) => {
     }
     
     // Delete product (soft delete by setting active to false)
-    const product = await prismaInstance.product.update({
-      where: { id },
-      data: {
-        active: false
-      }
-    });
+    const product = await Product.findByIdAndUpdate(
+      id,
+      { active: false },
+      { new: true }
+    );
     
     res.json({
       code: 'PRODUCT_DELETED',
       message: 'Product deleted successfully.',
-      product
+      product: {
+        id: product.id,
+        name: product.name,
+        unit: product.unit,
+        price: product.price,
+        active: product.active,
+        supplier: product.supplier ? {
+          id: product.supplier.id,
+          name: product.supplier.name,
+          companyName: product.supplier.companyName,
+          email: product.supplier.email,
+          phone: product.supplier.phone
+        } : null,
+        createdAt: product.createdAt,
+        updatedAt: product.updatedAt
+      }
     });
   } catch (error) {
     console.error('Delete product error:', error);
@@ -250,7 +274,6 @@ const deleteProduct = async (req, res) => {
 };
 
 module.exports = {
-  setPrismaInstance,
   getAllProducts,
   getProductById,
   createProduct,

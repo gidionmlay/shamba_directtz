@@ -188,7 +188,6 @@
 
 /* Media Card */
 .media-card {
-  background-color: white;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   overflow: hidden;
@@ -196,11 +195,20 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  /* Glassmorphism effect */
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .media-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--box-shadow-hover);
+  /* Enhanced glassmorphism effect on hover */
+  background: rgba(22, 163, 74, 0.1);
+  box-shadow: 0 8px 32px rgba(22, 163, 74, 0.2);
+  border: 1px solid rgba(22, 163, 74, 0.3);
 }
 
 .media-wrapper {
@@ -372,16 +380,24 @@
 }
 
 .timeline-content {
-  background-color: white;
   border-radius: var(--border-radius);
   padding: 25px;
   box-shadow: var(--box-shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Glassmorphism effect */
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .timeline-content:hover {
   transform: translateY(-5px);
   box-shadow: var(--box-shadow-hover);
+  /* Enhanced glassmorphism effect on hover */
+  background: rgba(22, 163, 74, 0.1);
+  box-shadow: 0 8px 32px rgba(22, 163, 74, 0.2);
+  border: 1px solid rgba(22, 163, 74, 0.3);
 }
 
 .timeline-date {

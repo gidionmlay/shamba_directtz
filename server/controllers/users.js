@@ -1,12 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
-// We'll inject the prisma client when initializing the controller
-let prismaInstance = null;
-
-const setPrismaInstance = (prisma) => {
-  prismaInstance = prisma;
-};
+const User = require('../models/User');
+const AdminEvent = require('../models/AdminEvent');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-key-change-in-production';
 
@@ -25,13 +20,11 @@ const register = async (req, res) => {
     const { name, email, phone, password, role = 'USER' } = req.body;
     
     // Check if user already exists
-    const existingUser = await prismaInstance.user.findFirst({
-      where: {
-        OR: [
-          { email: email },
-          { phone: phone }
-        ]
-      }
+    const existingUser = await User.findOne({
+      $or: [
+        { email: email },
+        { phone: phone }
+      ]
     });
     
     if (existingUser) {
@@ -46,23 +39,15 @@ const register = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
     
     // Create user
-    const user = await prismaInstance.user.create({
-      data: {
-        name,
-        email,
-        phone,
-        passwordHash,
-        role: role.toUpperCase()
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        role: true,
-        createdAt: true
-      }
+    const user = new User({
+      name,
+      email,
+      phone,
+      passwordHash,
+      role: role.toUpperCase()
     });
+    
+    await user.save();
     
     // Generate token
     const token = generateToken(user);
@@ -70,7 +55,14 @@ const register = async (req, res) => {
     res.status(201).json({
       code: 'REGISTRATION_SUCCESS',
       message: 'User registered successfully.',
-      user,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        createdAt: user.createdAt
+      },
       token
     });
   } catch (error) {
@@ -115,13 +107,11 @@ const registerFarmer = async (req, res) => {
     }
 
     // Check if user already exists
-    const existingUser = await prismaInstance.user.findFirst({
-      where: {
-        OR: [
-          { email: email },
-          { phone: phone }
-        ]
-      }
+    const existingUser = await User.findOne({
+      $or: [
+        { email: email },
+        { phone: phone }
+      ]
     });
 
     if (existingUser) {
@@ -136,32 +126,31 @@ const registerFarmer = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     // Create farmer user with PENDING status
-    const user = await prismaInstance.user.create({
-      data: {
-        name: fullName,
-        email: email || null,
-        phone: phone,
-        passwordHash,
-        role: 'FARMER',
-        status: 'PENDING',
-        farmSize: parseFloat(farmSize),
-        location: `${village}, ${district}, ${region}`
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        role: true,
-        status: true,
-        createdAt: true
-      }
+    const user = new User({
+      name: fullName,
+      email: email || null,
+      phone: phone,
+      passwordHash,
+      role: 'FARMER',
+      status: 'PENDING',
+      farmSize: parseFloat(farmSize),
+      location: `${village}, ${district}, ${region}`
     });
+
+    await user.save();
 
     res.status(201).json({
       code: 'REGISTRATION_SUCCESS',
       message: 'Farmer registration submitted successfully. Your account is pending admin approval.',
-      user
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        status: user.status,
+        createdAt: user.createdAt
+      }
     });
   } catch (error) {
     console.error('Farmer registration error:', error);
@@ -207,13 +196,11 @@ const registerSupplier = async (req, res) => {
     }
 
     // Check if user already exists
-    const existingUser = await prismaInstance.user.findFirst({
-      where: {
-        OR: [
-          { email: contactEmail },
-          { phone: contactPhone }
-        ]
-      }
+    const existingUser = await User.findOne({
+      $or: [
+        { email: contactEmail },
+        { phone: contactPhone }
+      ]
     });
 
     if (existingUser) {
@@ -228,33 +215,32 @@ const registerSupplier = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     // Create supplier user with PENDING status
-    const user = await prismaInstance.user.create({
-      data: {
-        name: contactFullName,
-        email: contactEmail,
-        phone: contactPhone,
-        passwordHash,
-        role: 'SUPPLIER',
-        status: 'PENDING',
-        companyName: companyName,
-        businessRegNo: businessRegNo,
-        location: `${businessAddress}, ${wardVillage || ''}, ${district}, ${region}`
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        role: true,
-        status: true,
-        createdAt: true
-      }
+    const user = new User({
+      name: contactFullName,
+      email: contactEmail,
+      phone: contactPhone,
+      passwordHash,
+      role: 'SUPPLIER',
+      status: 'PENDING',
+      companyName: companyName,
+      businessRegNo: businessRegNo,
+      location: `${businessAddress}, ${wardVillage || ''}, ${district}, ${region}`
     });
+
+    await user.save();
 
     res.status(201).json({
       code: 'REGISTRATION_SUCCESS',
       message: 'Supplier registration submitted successfully. Your account is pending admin approval.',
-      user
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        status: user.status,
+        createdAt: user.createdAt
+      }
     });
   } catch (error) {
     console.error('Supplier registration error:', error);
@@ -271,23 +257,11 @@ const login = async (req, res) => {
     const { emailPhone, password, role } = req.body;
     
     // Find user by email or phone
-    const user = await prismaInstance.user.findFirst({
-      where: {
-        OR: [
-          { email: emailPhone },
-          { phone: emailPhone }
-        ]
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        role: true,
-        status: true,
-        passwordHash: true,
-        firstLogin: true
-      }
+    const user = await User.findOne({
+      $or: [
+        { email: emailPhone },
+        { phone: emailPhone }
+      ]
     });
     
     if (!user) {
@@ -355,10 +329,7 @@ const login = async (req, res) => {
     // Update firstLogin status if it's their first login
     if (isFirstLogin) {
       try {
-        await prismaInstance.user.update({
-          where: { id: user.id },
-          data: { firstLogin: false }
-        });
+        await User.findByIdAndUpdate(user.id, { firstLogin: false });
       } catch (updateError) {
         console.error('Error updating firstLogin status:', updateError);
         // Don't fail the login if we can't update this status
@@ -391,17 +362,7 @@ const login = async (req, res) => {
 // Get current user profile
 const getCurrentUser = async (req, res) => {
   try {
-    const user = await prismaInstance.user.findUnique({
-      where: { id: req.user.id },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        role: true,
-        createdAt: true
-      }
-    });
+    const user = await User.findById(req.user.id).select('-passwordHash -__v');
     
     if (!user) {
       return res.status(404).json({
@@ -412,7 +373,14 @@ const getCurrentUser = async (req, res) => {
     
     res.json({
       code: 'SUCCESS',
-      user
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        createdAt: user.createdAt
+      }
     });
   } catch (error) {
     console.error('Get user error:', error);
@@ -428,46 +396,42 @@ const getAllUsers = async (req, res) => {
   try {
     const { role, status, search } = req.query;
     
-    const where = {};
+    const query = {};
     
     // Filter by role
     if (role) {
-      where.role = role.toUpperCase();
+      query.role = role.toUpperCase();
     }
     
     // Filter by status
     if (status) {
-      where.status = status.toUpperCase();
+      query.status = status.toUpperCase();
     }
     
     // Filter by search term
     if (search) {
-      where.OR = [
-        { name: { contains: search, mode: 'insensitive' } },
-        { email: { contains: search, mode: 'insensitive' } },
-        { phone: { contains: search, mode: 'insensitive' } }
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } },
+        { phone: { $regex: search, $options: 'i' } }
       ];
     }
     
-    const users = await prismaInstance.user.findMany({
-      where,
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        role: true,
-        status: true,
-        createdAt: true
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
-    });
+    const users = await User.find(query)
+      .select('-passwordHash -__v')
+      .sort({ createdAt: -1 });
     
     res.json({
       code: 'SUCCESS',
-      users
+      users: users.map(user => ({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        status: user.status,
+        createdAt: user.createdAt
+      }))
     });
   } catch (error) {
     console.error('Get users error:', error);
@@ -484,9 +448,7 @@ const approveUser = async (req, res) => {
     const { id } = req.params;
     
     // Get current user to log the change
-    const currentUser = await prismaInstance.user.findUnique({
-      where: { id }
-    });
+    const currentUser = await User.findById(id);
     
     if (!currentUser) {
       return res.status(404).json({
@@ -496,37 +458,35 @@ const approveUser = async (req, res) => {
     }
     
     // Update user status to APPROVED
-    const updatedUser = await prismaInstance.user.update({
-      where: { id },
-      data: {
-        status: 'APPROVED'
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        role: true,
-        status: true
-      }
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { status: 'APPROVED' },
+      { new: true }
+    ).select('-passwordHash -__v');
     
     // Log admin event
-    await prismaInstance.adminEvent.create({
-      data: {
-        adminId: req.user.id,
-        entityType: 'User',
-        entityId: id,
-        action: 'APPROVE',
-        from: currentUser.status,
-        to: 'APPROVED'
-      }
+    const adminEvent = new AdminEvent({
+      admin: req.user.id,
+      entityType: 'User',
+      entityId: id,
+      action: 'APPROVE',
+      from: currentUser.status,
+      to: 'APPROVED'
     });
+    
+    await adminEvent.save();
     
     res.json({
       code: 'USER_APPROVED',
       message: 'User approved successfully.',
-      user: updatedUser
+      user: {
+        id: updatedUser.id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        phone: updatedUser.phone,
+        role: updatedUser.role,
+        status: updatedUser.status
+      }
     });
   } catch (error) {
     console.error('Approve user error:', error);
@@ -544,9 +504,7 @@ const rejectUser = async (req, res) => {
     const { reason } = req.body; // Optional reason for rejection
     
     // Get current user to log the change
-    const currentUser = await prismaInstance.user.findUnique({
-      where: { id }
-    });
+    const currentUser = await User.findById(id);
     
     if (!currentUser) {
       return res.status(404).json({
@@ -556,38 +514,36 @@ const rejectUser = async (req, res) => {
     }
     
     // Update user status to REJECTED
-    const updatedUser = await prismaInstance.user.update({
-      where: { id },
-      data: {
-        status: 'REJECTED'
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        role: true,
-        status: true
-      }
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { status: 'REJECTED' },
+      { new: true }
+    ).select('-passwordHash -__v');
     
     // Log admin event
-    await prismaInstance.adminEvent.create({
-      data: {
-        adminId: req.user.id,
-        entityType: 'User',
-        entityId: id,
-        action: 'REJECT',
-        from: currentUser.status,
-        to: 'REJECTED',
-        meta: reason ? JSON.stringify({ reason }) : null
-      }
+    const adminEvent = new AdminEvent({
+      admin: req.user.id,
+      entityType: 'User',
+      entityId: id,
+      action: 'REJECT',
+      from: currentUser.status,
+      to: 'REJECTED',
+      meta: reason ? JSON.stringify({ reason }) : null
     });
+    
+    await adminEvent.save();
     
     res.json({
       code: 'USER_REJECTED',
       message: 'User rejected successfully.',
-      user: updatedUser
+      user: {
+        id: updatedUser.id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        phone: updatedUser.phone,
+        role: updatedUser.role,
+        status: updatedUser.status
+      }
     });
   } catch (error) {
     console.error('Reject user error:', error);
@@ -621,9 +577,7 @@ const updateUserRole = async (req, res) => {
     }
     
     // Get current user to log the change
-    const currentUser = await prismaInstance.user.findUnique({
-      where: { id }
-    });
+    const currentUser = await User.findById(id);
     
     if (!currentUser) {
       return res.status(404).json({
@@ -641,36 +595,34 @@ const updateUserRole = async (req, res) => {
     }
     
     // Update user role
-    const updatedUser = await prismaInstance.user.update({
-      where: { id },
-      data: {
-        role: role.toUpperCase()
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        role: true
-      }
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { role: role.toUpperCase() },
+      { new: true }
+    ).select('-passwordHash -__v');
     
     // Log admin event
-    await prismaInstance.adminEvent.create({
-      data: {
-        adminId: req.user.id,
-        entityType: 'User',
-        entityId: id,
-        action: 'UPDATE_ROLE',
-        from: currentUser.role,
-        to: role.toUpperCase()
-      }
+    const adminEvent = new AdminEvent({
+      admin: req.user.id,
+      entityType: 'User',
+      entityId: id,
+      action: 'UPDATE_ROLE',
+      from: currentUser.role,
+      to: role.toUpperCase()
     });
+    
+    await adminEvent.save();
     
     res.json({
       code: 'USER_ROLE_UPDATED',
       message: 'User role updated successfully.',
-      user: updatedUser
+      user: {
+        id: updatedUser.id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        phone: updatedUser.phone,
+        role: updatedUser.role
+      }
     });
   } catch (error) {
     console.error('Update user role error:', error);
@@ -687,9 +639,7 @@ const deleteUser = async (req, res) => {
     const { id } = req.params;
     
     // Check if user exists
-    const user = await prismaInstance.user.findUnique({
-      where: { id }
-    });
+    const user = await User.findById(id);
     
     if (!user) {
       return res.status(404).json({
@@ -707,9 +657,7 @@ const deleteUser = async (req, res) => {
     }
     
     // Delete user
-    await prismaInstance.user.delete({
-      where: { id }
-    });
+    await User.findByIdAndDelete(id);
     
     res.json({
       code: 'USER_DELETED',
@@ -725,7 +673,6 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
-  setPrismaInstance,
   register,
   registerFarmer,
   registerSupplier,

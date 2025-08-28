@@ -1,15 +1,24 @@
 /* --- Header Section --- */
 .shamba-navbar {
-    background-color: #FFFFFF; /* White background for the header */
-    padding: 15px 20px; /* Vertical and horizontal padding */
-    box-shadow: var(--shadow-subtle); /* Subtle shadow for depth */
-    border-bottom: 1px solid var(--border-light); /* Light bottom border */
-    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    position: sticky; /* Makes the header stick to the top when scrolling */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 100; /* Ensures header stays on top of other content */
+  background: rgba(255, 255, 255, 0.25);
+  padding: 15px 20px; /* Vertical and horizontal padding */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: sticky; /* Makes the header stick to the top when scrolling */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100; /* Ensures header stays on top of other content */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.shamba-navbar:hover {
+  background: rgba(22, 163, 74, 0.1);
+  box-shadow: 0 8px 32px rgba(22, 163, 74, 0.2);
+  border-bottom: 1px solid rgba(22, 163, 74, 0.3);
 }
 
 .navbar-container {
@@ -42,19 +51,23 @@
 }
 
 .main-nav a {
-    color: var(--text-medium); /* Default link color */
-    text-decoration: none;
-    font-size: 1.0em;
-    font-weight: 500;
-    padding: 5px 0; /* Padding for click area */
-    position: relative; /* For underline effect */
-    transition: color var(--transition-speed);
-    
+  color: var(--text-medium); /* Default link color */
+  text-decoration: none;
+  font-size: 1.0em;
+  font-weight: 500;
+  padding: 5px 10px; /* Padding for click area */
+  position: relative; /* For underline effect */
+  transition: all var(--transition-speed);
+  border-radius: 5px;
 }
 
 .main-nav a:hover {
-    color: var(--primary-green); /* Green color on hover */
-    text-decoration: none;
+  color: var(--primary-green); /* Green color on hover */
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .main-nav a::after {

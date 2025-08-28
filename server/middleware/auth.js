@@ -1,11 +1,5 @@
 const jwt = require('jsonwebtoken');
-
-// We'll inject the prisma client when initializing the middleware
-let prismaInstance = null;
-
-const setPrismaInstance = (prisma) => {
-  prismaInstance = prisma;
-};
+const User = require('../models/User');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-key-change-in-production';
 
@@ -22,8 +16,24 @@ const authenticateToken = async (req, res, next) => {
   }
   
   try {
-    const user = jwt.verify(token, JWT_SECRET);
-    req.user = user;
+    const decoded = jwt.verify(token, JWT_SECRET);
+    
+    // Fetch user from database to ensure they still exist and get latest data
+    const user = await User.findById(decoded.id).select('-passwordHash');
+    
+    if (!user) {
+      return res.status(401).json({
+        code: 'INVALID_TOKEN',
+        message: 'User no longer exists.'
+      });
+    }
+    
+    req.user = {
+      id: user.id,
+      email: user.email,
+      role: user.role
+    };
+    
     next();
   } catch (err) {
     return res.status(403).json({
@@ -44,7 +54,6 @@ const requireAdmin = (req, res, next) => {
 };
 
 module.exports = {
-  setPrismaInstance,
   authenticateToken,
   requireAdmin
 };

@@ -3,10 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { PrismaClient } = require('@prisma/client');
+const mongoose = require('mongoose');
 
-// Initialize Prisma Client
-const prisma = new PrismaClient();
+// Connect to MongoDB
+mongoose.connect(process.env.DATABASE_URL)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,22 +19,20 @@ const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
 const supplierRoutes = require('./routes/suppliers');
 
-// Import controllers and set up with prisma instance
+// Import models to ensure they are registered
+require('./models/User');
+require('./models/Product');
+require('./models/Order');
+require('./models/AdminEvent');
+
+// Import controllers
 const userController = require('./controllers/users');
-userController.setPrismaInstance(prisma);
-
 const productController = require('./controllers/products');
-productController.setPrismaInstance(prisma);
-
 const orderController = require('./controllers/orders');
-orderController.setPrismaInstance(prisma);
-
 const supplierController = require('./controllers/suppliers');
-supplierController.setPrismaInstance(prisma);
 
-// Import and set up auth middleware with prisma instance
+// Import auth middleware
 const authMiddleware = require('./middleware/auth');
-authMiddleware.setPrismaInstance(prisma);
 
 // Middleware
 app.use(helmet());
@@ -89,13 +89,13 @@ app.use('*', (req, res) => {
 // Graceful shutdown
 process.on('SIGINT', async () => {
   console.log('Shutting down gracefully...');
-  await prisma.$disconnect();
+  await mongoose.connection.close();
   process.exit(0);
 });
 
 process.on('SIGTERM', async () => {
   console.log('Shutting down gracefully...');
-  await prisma.$disconnect();
+  await mongoose.connection.close();
   process.exit(0);
 });
 

@@ -2,6 +2,8 @@
 
 This project implements a full backend integration for user registration with admin approval workflow for Shamba Direct.
 
+**Note: This project has been migrated from PostgreSQL with Prisma to MongoDB with Mongoose.**
+
 ## Features Implemented
 
 ### 1. User Registration
@@ -41,16 +43,19 @@ This project implements a full backend integration for user registration with ad
 ## Database Schema Changes
 
 ### New Fields
-- `status` (ENUM: PENDING, APPROVED, REJECTED) - Tracks user approval status
-- `firstLogin` (BOOLEAN) - Tracks if it's the user's first login after approval
-- `farmSize` (DOUBLE PRECISION) - Farm size for farmers
-- `companyName` (TEXT) - Company name for suppliers
-- `businessRegNo` (TEXT) - Business registration number for suppliers
-- `location` (TEXT) - Location information for both farmers and suppliers
+- `status` (String: PENDING, APPROVED, REJECTED) - Tracks user approval status
+- `firstLogin` (Boolean) - Tracks if it's the user's first login after approval
+- `farmSize` (Number) - Farm size for farmers
+- `companyName` (String) - Company name for suppliers
+- `businessRegNo` (String) - Business registration number for suppliers
+- `location` (String) - Location information for both farmers and suppliers
 
 ### New Roles
 - `FARMER` - For farmer users
 - `SUPPLIER` - For supplier users
+
+### Database Migration
+This project has been migrated from PostgreSQL with Prisma to MongoDB with Mongoose. All data models have been updated to use MongoDB's document-based structure instead of PostgreSQL's relational structure.
 
 ## Frontend Changes
 
@@ -68,7 +73,7 @@ This project implements a full backend integration for user registration with ad
 
 ## Setup Instructions
 
-1. Update the database schema with the new migration file
+1. Install MongoDB Community Server and start the service
 2. Install dependencies: `npm install` in the server directory
 3. Start the server: `npm start` or `npm run dev` in the server directory
 

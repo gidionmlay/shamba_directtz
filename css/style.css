@@ -438,22 +438,26 @@ a {
     padding: 0 15px; /* Some horizontal padding to prevent cards from touching screen edges on small devices */
 }
 .feature-card {
-    background-color: #FFFFFF; /* White background for a clean look */
-    border-radius: 12px; /* Slightly rounded corners, soft and modern */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Subtle, noticeable shadow for depth */
-    padding: 30px; /* Generous internal padding */
-    display: flex;
-    flex-direction: column; /* Stacks content vertically */
-    justify-content: flex-start; /* Aligns content to the top */
-    align-items: flex-start; /* Aligns text/content to the left */
-    text-align: left; /* Ensures text is left-aligned */
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth hover effects */
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+  transition: all 0.3s ease;
 }
 
-/* Optional: Hover effect for interactivity */
 .feature-card:hover {
-    transform: translateY(-5px); /* Lifts the card slightly */
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+  background: rgba(22, 163, 74, 0.1);
+  box-shadow: 0 8px 32px rgba(22, 163, 74, 0.2);
+  transform: translateY(-5px);
+  border: 1px solid rgba(22, 163, 74, 0.3);
 }
 
 /* Content within the card */
@@ -859,22 +863,25 @@ a {
 }
 
 .resource-card {
-    background-color: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    text-align: left; /* Align card content to the left */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Push link to the bottom */
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    border: 1px solid transparent; /* Subtle border that can change on hover */
+  background: rgba(255, 255, 255, 0.25);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
 }
 
 .resource-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-    border-color: #6CBE45; /* Green border on hover */
+  background: rgba(22, 163, 74, 0.1);
+  box-shadow: 0 8px 32px rgba(22, 163, 74, 0.2);
+  transform: translateY(-5px);
+  border: 1px solid rgba(22, 163, 74, 0.3);
 }
 
 .card-icon-header {

@@ -46,11 +46,11 @@ const validateProduct = (req, res, next) => {
     });
   }
   
-  // If supplierId is provided, it should be a valid UUID
-  if (supplierId && !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(supplierId)) {
+  // If supplierId is provided, it should be a valid ObjectId
+  if (supplierId && !/^[0-9a-fA-F]{24}$/.test(supplierId)) {
     return res.status(400).json({
       code: 'INVALID_SUPPLIER_ID',
-      message: 'Supplier ID must be a valid UUID.'
+      message: 'Supplier ID must be a valid ObjectId.'
     });
   }
   
